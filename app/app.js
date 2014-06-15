@@ -10,13 +10,18 @@ var morgan         = require('morgan');
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 var cookieSession  = require('cookie-session');
-var initMongo      = traceur.require(__dirname + '/lib/init-mongo.js');
-var initRoutes     = traceur.require(__dirname + '/lib/init-routes.js');
+var passport       = require('passport');
+var flash 	       = require('connect-flash');
 
 /* --- configuration    */
 var app = express();
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+
+var initMongo      = traceur.require(__dirname + '/lib/init-mongo.js');
+var initRoutes     = traceur.require(__dirname + '/lib/init-routes.js')(app, passport);
+
+require('./config/passport')(passport); // pass passport for configuration
 
 /* --- pipeline         */
 app.use(initMongo);
@@ -27,6 +32,10 @@ app.use('/less', less(__dirname + '/less'));
 app.use(bodyParser());
 app.use(methodOverride());
 app.use(cookieSession({keys:['SEC123', '321CES']}));
+app.use(express.session({ secret: 'myhusbandishot' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 /* --- http server      */
 var server = require('http').createServer(app);
