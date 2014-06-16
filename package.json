@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "express":         "*",
+    "express-session": "*",
     "lodash":          "*",
     "moment":          "*",
     "mongodb":         "*",
@@ -30,11 +31,13 @@
     "bcrypt":          "*",
     "cookie-session":  "*",
     "cookies":         "*",
+    "cookie-parser":   "*",
     "async":           "*",
     "request":         "*",
     "passport":        "~0.1.17",
     "passport-local":  "~0.1.6",
     "passport-facebook": "~1.0.2",
+    "passport-twitter" : "~1.0.2",
     "connect-flash":   "~0.1.1"
   },
   "devDependencies": {

@@ -8,8 +8,8 @@ exports.login = (req, res)=>{
   res.render('users/login', {message: req.flash('loginMessage'), title: 'Login'});
 };
 
-exports.authenticate = (req, res)=>{
-
+exports.profile = (req, res)=>{
+  res.render('users/profile', {user: req.user, title: 'Profile'});
 };
 
 exports.signup = (req, res)=>{

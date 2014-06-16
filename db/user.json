@@ -1,7 +1,6 @@
 [
-  {"email":"bil@aol.com", "password":"1234", "firstName":"sue", "lastName":"smith", "_id":"0123456789abcdef01234567"},
   {"email":"sue@aol.com", "password":"5678", "_id":"0123456789abcdef01234568"},
-  {"email":"sam@aol.com", "password":"90ab"},
-  {"email":"amy@aol.com", "password":"cdef"},
-  {"email":"cat@aol.com", "password":"ghij"}
+  {"email":"sam@aol.com", "password":"90ab", "_id":"0123456789abcdef01234569"},
+  {"email":"amy@aol.com", "password":"cdef", "_id":"0123456789abcdef01234570"},
+  {"email":"cat@aol.com", "password":"ghij", "_id":"0123456789abcdef01234571"}
 ]
