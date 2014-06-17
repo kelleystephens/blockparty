@@ -18,7 +18,9 @@ function load(fn){
     if(err){throw err;}
     global.nss = {};
     global.nss.db = db;
-    console.log('Connected to MongoDB');
-    fn();
+    global.nss.db.collection('users').ensureIndex({'coordinates':'2dsphere'}, function(e, indexName){
+      console.log('Connected to MongoDB');
+      fn();
+    });
   });
 }

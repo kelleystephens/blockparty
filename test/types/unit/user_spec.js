@@ -1,4 +1,4 @@
-/* global describe, it, before, beforeEach */
+/* global describe, it, before, beforeEach, afterEach */
 /* jshint expr:true */
 
 'use strict';
@@ -6,10 +6,11 @@
 process.env.DBNAME = 'blockparty-test';
 
 var expect = require('chai').expect;
-// var Mongo = require('mongodb');
+var Mongo = require('mongodb');
 var traceur = require('traceur');
 var db = traceur.require(__dirname + '/../../helpers/db.js');
 var factory = traceur.require(__dirname + '/../../helpers/factory.js');
+var cp = require('child_process');
 
 var User;
 
@@ -22,10 +23,18 @@ describe('User', function(){
   });
 
   beforeEach(function(done){
-    global.nss.db.collection('users').drop(function(){
-      factory('user', function(users){
-        done();
+    global.nss.db.collection('users').remove(function(){
+      cp.execFile(__dirname + '/../../fixtures/before.sh', {cwd:__dirname + '/../../fixtures'}, function(err, stdout, stderr){
+        factory('user', function(users){
+          done();
+        });
       });
+    });
+  });
+
+  afterEach(function(done){
+    cp.execFile(__dirname + '/../../fixtures/after.sh', {cwd:__dirname + '/../../fixtures'}, function(err, stdout, stderr){
+      done();
     });
   });
 
@@ -46,73 +55,51 @@ describe('User', function(){
     });
   });
 
-  // describe('.create', function(){
-  //   it('should create a new user', function(done){
-  //     User.create({firstName:'jane', lastName:'doe', email:'jane@doe.com', password:'jane'}, function(user){
-  //       expect(user).to.be.ok;
-  //       expect(user).to.be.an.instanceof(User);
-  //       expect(user._id).to.be.an.instanceof(Mongo.ObjectID);
-  //       expect(user.firstName).to.equal('jane');
-  //       expect(user.lastName).to.equal('doe');
-  //       expect(user.password).to.have.length(60);
-  //       done();
-  //     });
-  //   });
-  //
-  //   it('should not create a new user - already exists', function(done){
-  //     User.create({firstName:'sue', lastName:'blah', email:'sue@aol.com', password:'doesnt matter'}, function(user){
-  //       expect(user).to.be.null;
-  //       done();
-  //     });
-  //   });
-  // });
-  //
-  // describe('.login', function(){
-  //   it('should login a user', function(done){
-  //     User.login({email:'sue@aol.com', password:'5678'}, function(u){
-  //       expect(u).to.be.ok;
-  //       done();
-  //     });
-  //   });
-  //
-  //   it('should NOT login user - bad password', function(done){
-  //     User.login({email:'sue@aol.com', password:'wrong'}, function(u){
-  //       expect(u).to.be.null;
-  //       done();
-  //     });
-  //   });
-  // });
-  //
-  // describe('.findById', function(){
-  //   it('should successfully find a user - String', function(done){
-  //     User.findById('0123456789abcdef01234568', function(u){
-  //       expect(u).to.be.instanceof(User);
-  //       expect(u.email).to.equal('sue@aol.com');
-  //       done();
-  //     });
-  //   });
-  //
-  //   it('should successfully find a user - object id', function(done){
-  //     User.findById(Mongo.ObjectID('0123456789abcdef01234568'), function(u){
-  //       expect(u).to.be.instanceof(User);
-  //       expect(u.email).to.equal('sue@aol.com');
-  //       done();
-  //     });
-  //   });
-  //
-  //   it('should NOT successfully find a user - Bad Id', function(done){
-  //     User.findById('not an id', function(u){
-  //       expect(u).to.be.null;
-  //       done();
-  //     });
-  //   });
-  //
-  //   it('should NOT successfully find a user - NULL', function(done){
-  //     User.findById(null, function(u){
-  //       expect(u).to.be.null;
-  //       done();
-  //     });
-  //   });
-  // });
+  describe('#addCoords', function(){
+    it('should add lat and lng to user', function(done){
+      User.findById('0123456789abcdef01234568', function(u){
+        u.addCoords({address: '123 Main Street', city:'Nashville', state:'TN', zip:'37208', coordinates:['36.16958', '-86.798264']}, function(user){
+          expect(user.coordinates).to.be.an('array');
+          expect(user.coordinates[0]).to.equal(36.16958);
+          expect(user.coordinates[1]).to.equal(-86.798264);
+          expect(user.address).to.equal('123 Main Street');
+          expect(user.city).to.equal('Nashville');
+          expect(user.state).to.equal('TN');
+          expect(user.zip).to.equal('37208');
+          done();
+        });
+      });
+    });
+  });
+
+  describe('#update', function(){
+    it('should update a user', function(done){
+      User.findById('0123456789abcdef01234568', function(u){
+        var obj = {name: ['Sue Smith'], description:['I am signing up for your app'], photo: [{originalFilename: 'pic.jpg', path: '../../test/fixtures/copy/pic.jpg', size: 10}]};
+        u.update(obj, function(user){
+          expect(user).to.be.ok;
+          expect(user).to.be.instanceof(User);
+          expect(user._id.toString()).to.deep.equal('0123456789abcdef01234568');
+          expect(user.name).to.equal('Sue Smith');
+          expect(user.description).to.equal('I am signing up for your app');
+          done();
+        });
+      });
+    });
+  });
+
+  describe('findByLocation', function(){
+    it('should find users by their location', function(done){
+      var obj = {coordinates: ['36.168987', '-86.79953799999998']};
+      User.findByLocation(obj, function(users){
+        expect(users).to.be.an('array');
+        expect(users[0]).to.be.ok;
+        expect(users[0]).to.be.instanceof(User);
+        expect(users[0]._id).to.be.instanceof(Mongo.ObjectID);
+        expect(users[0].email).to.equal('sue@aol.com');
+        done();
+      });
+    });
+  });
 
 });

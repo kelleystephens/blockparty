@@ -6,10 +6,10 @@ module.exports = {
 		'callbackURL'	: 'http://localhost:5000/auth/facebook/callback'
 	},
 
-	'twitterAuth' : {
-		'consumerKey'		: 'nzb38sVBojiySUhxAbxZhfRGN',
-		'consumerSecret' : '4wrlIzXq4GKgCe11Wgjib9he2o6MBJIsHx28TkfZxiTwJ1U2zN',
-		'callbackURL'		: 'http://localhost:5000/auth/twitter/callback'
-	}
+	// 'twitterAuth' : {
+	// 	'consumerKey'		: 'nzb38sVBojiySUhxAbxZhfRGN',
+	// 	'consumerSecret' : '4wrlIzXq4GKgCe11Wgjib9he2o6MBJIsHx28TkfZxiTwJ1U2zN',
+	// 	'callbackURL'		: 'http://localhost:5000/auth/twitter/callback'
+	// }
 
 };

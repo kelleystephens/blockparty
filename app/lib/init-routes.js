@@ -47,15 +47,6 @@ function load(app, fn){
 			failureRedirect : '/'
 		}));
 
-	// TWITTER ROUTES
-	app.get('/auth/twitter', passport.authenticate('twitter'));
-
-	app.get('/auth/twitter/callback',
-		passport.authenticate('twitter', {
-			successRedirect : '/profile',
-			failureRedirect : '/'
-		}));
-
   console.log('Routes Loaded');
   fn();
 }

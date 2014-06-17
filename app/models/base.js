@@ -1,5 +1,3 @@
-
-
 var Mongo = require('mongodb');
 var _ = require('lodash');
 
@@ -22,27 +20,7 @@ class Base{
       }
     });
   }
-//
-//   static findAllByUserId(userId, collection, model, fn){
-//     if(typeof userId === 'string'){
-//       if(userId.length !== 24){fn(null); return;}
-//       userId = Mongo.ObjectID(userId);
-//     }
-//
-//     if(!(userId instanceof Mongo.ObjectID)){fn(null); return;}
-//
-//     collection.find({userId:userId}).toArray((e,objs)=>{
-//       objs = objs.map(o=>_.create(model.prototype, o));
-//       fn(objs);
-//     });
-//   }
-//
-//   static findAll(collection, model, fn){
-//     collection.find().toArray((e,objs)=>{
-//       objs = objs.map(o=>_.create(model.prototype, o));
-//       fn(objs);
-//     });
-//   }
+
 }
 
 module.exports = Base;
