@@ -24,6 +24,7 @@ var flash 	       = require('connect-flash');
 var app = express();
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+app.locals.moment = require('moment');
 
 /* --- pipeline         */
 app.use(initMongo);

@@ -16,6 +16,9 @@ module.exports = (req, res, next)=>{
 function load(app, fn){
   var home = traceur.require(__dirname + '/../routes/home.js');
   var users = traceur.require(__dirname + '/../routes/users.js');
+  var posts = traceur.require(__dirname + '/../routes/posts.js');
+  var messages = traceur.require(__dirname + '/../routes/messages.js');
+
   var passport = require('passport');
   require('../config/passport')(passport);
 
@@ -24,7 +27,19 @@ function load(app, fn){
   app.get('/login', dbg, users.login);
   app.get('/signup', dbg, users.signup);
   app.get('/profile', dbg, isLoggedIn, users.profile);
-  app.get('/logout', dbg, users.logout);
+  app.post('/profile/:id', dbg, users.updateProfile);
+  app.get('/location', dbg, isLoggedIn, users.location);
+  app.post('/location', dbg, users.addCoords);
+  app.get('/dashboard/:id', dbg, isLoggedIn, users.dashboard);
+  app.get('/meet/:id', dbg, isLoggedIn, users.show);
+  app.get('/logout', dbg, isLoggedIn, users.logout);
+
+  app.get('/post', dbg, isLoggedIn, posts.new);
+  app.post('/post', dbg, posts.create);
+
+  app.get('/message/:toId', dbg, isLoggedIn, messages.new);
+  app.post('/message/:toId', dbg, messages.create);
+  app.get('/show/:mId', isLoggedIn, messages.show);
 
   app.post('/signup', passport.authenticate('local-signup', {
 		successRedirect : '/profile',
@@ -33,7 +48,7 @@ function load(app, fn){
 	}));
 
   app.post('/login', passport.authenticate('local-login', {
-		successRedirect : '/profile',
+		successRedirect : '/dashboard',
 		failureRedirect : '/login',
 		failureFlash : true
 	}));

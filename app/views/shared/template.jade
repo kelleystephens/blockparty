@@ -3,7 +3,9 @@ html
   head
     meta(charset='utf-8')
     title= title
-    link(rel='stylesheet' href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
+    link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' rel='stylesheet')
+    link(href='//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' rel='stylesheet')
+    link(href='/css/style.css', rel='stylesheet')
     link(href='/less/app.css', rel='stylesheet')
   body
     block content
@@ -12,10 +14,12 @@ html
     script(src='/js/vendor/lodash-2.4.1.js')
     script(src='/js/vendor/moment-2.6.0.js')
     script(src='/js/vendor/traceur.js')
+    script(src='/js/vendor/sliding.form.js')
     script(src='//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js')
-    script(src='/socket.io/socket.io.js')
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBAMlNUMi6ccnNWK0_Th04_be41nO4XNSk&sensor=true')
+    //- script(src='/socket.io/socket.io.js')
     script(src='/js/es5/main.js')
     script(src='/js/es6/compiled/main.js')
-    script(src='/js/es6/compiled/sockets.js')
+    //- script(src='/js/es6/compiled/sockets.js')
 
     block scripts

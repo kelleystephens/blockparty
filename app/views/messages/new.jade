@@ -1,0 +1,14 @@
+extends ../shared/template
+
+block content
+  h5 Write a Message
+  #fromUser From: #{fromUser.name}
+  #toUser From: #{toUser.name}
+  #date= moment().format('MM/DD/YYYY')
+
+  form(action='/message/#{toUser._id}', method='post')
+    input(type='hidden', value='#{fromUser._id}', name='fromUserId')
+    input(type='hidden', value='#{toUser._id}', name='toUserId')
+    input#subject.form-control(type='text', placeholder='Subject', name='subject')
+    textarea#body.form-control(rows='7', placeholder='Type Your Message Here', name='body')
+    button.btn.btn-primary#sendmessage Send Message

@@ -1,0 +1,11 @@
+extends ../shared/template
+
+block content
+  h5 Write a post for the message board
+  #creator Content Creator: #{user.name}
+  #date= moment().format('MM/DD/YYYY')
+
+  form(action='/post', method='post')
+    input(name='subject', type='text', autofocus=true, placeholder='Subject Here', required)
+    textarea(name='body', type='text', placeholder='Message Content Here', required)
+    button#post Post to Message Board

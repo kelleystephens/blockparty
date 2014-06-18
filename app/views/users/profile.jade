@@ -1,5 +1,58 @@
 extends ../shared/template
 
 block content
-  h1 Set up your profile!
-  a.btn.btn-default.btn-sm(href='/logout') Logout
+  h1#profilesetup Let's Set Up Your Profile!
+
+  #wrapper
+    #steps
+        form#formElem(name='formElem', action='/profile/#{user._id}', method='post', enctype='multipart/form-data')
+          fieldset.step
+            legend.basics Basics
+            p
+              label.setup Full Name
+              input#name(name='name', autofocus=true, placeholder='John Doe', value=user.name, required, style='text-transform: capitalize')
+            p
+              label.setup Upload a Picture
+              input(type='file', name='photo', required)
+            p
+              label.setup Tell Us More About Yourself!
+              textarea#about(name='about' rows='10' columns='50' placeholder='Hobbies, Favorites, Likes, Dislikes') #{user.about}
+
+          fieldset.step
+            legend.family Family
+            p
+              label.setup Spouse
+              select#spouse(name='spouse')
+                option(value='') NA
+                option(value='husband') Husband
+                option(value='wife') Wife
+              input#spouseName(name='spouseName', placeholder='Name (leave blank if NA)', style='text-transform: capitalize')
+            p
+              label.setup Children
+              select.kid(name='kids')
+                option(value='') NA
+                option(value='son') Son
+                option(value='daughter') Daughter
+              input.kidName(name='kidName', placeholder='Name (leave blank if NA)', style='text-transform: capitalize')
+              a#addKid(href='#') Add another child
+          fieldset.step
+            legend.pets Pets
+            p
+              label.setup Pet
+              input.pet(name='pets', autofocus=true, placeholder='Animal Type (leave blank if NA)', value=user.pet)
+              input.petName(name='petName', placeholder='Name (leave blank if NA)', value=user.petName, style='text-transform: capitalize')
+              a#addPet(href='#') Add another pet
+          fieldset.step
+            legend.account Account
+            p.submit
+              button#registerButton Update Info!
+      #navigation(style='display: none;')
+        ul.navigation
+          li.selected
+            a(href='#') Basics
+          li
+            a(href='#') Family
+          li
+            a(href='#') Pets
+          li
+            a(href='#') Account

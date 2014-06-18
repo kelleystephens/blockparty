@@ -69,7 +69,7 @@ module.exports = function(passport) {
   },
   function(req, email, password, done) {
 
-    userCollection.findOne({ 'local.email' :  email }, function(err, user) {
+    userCollection.findOne({ 'email' :  email }, function(err, user) {
 
       user = _.create(User.prototype, user);
 
@@ -114,11 +114,11 @@ module.exports = function(passport) {
           } else {
             var newUser            = new User();
 
+            newUser.name = profile.name.givenName + ' ' + profile.name.familyName;
             newUser.facebook.id    = profile.id;
             newUser.facebook.token = token;
             newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
             newUser.facebook.email = profile.emails[0].value;
-            newUser.facebook.photos = profile.photos;
 
             newUser.save(function(err) {
                 if (err){
@@ -131,6 +131,7 @@ module.exports = function(passport) {
       } else {
         var user            = req.user;
 
+        user.name = profile.name.givenName + ' ' + profile.name.familyName;
         user.facebook.id    = profile.id;
         user.facebook.token = token;
         user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
