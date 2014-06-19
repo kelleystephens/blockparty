@@ -3,6 +3,7 @@
 var traceur = require('traceur');
 var dbg = traceur.require(__dirname + '/route-debugger.js');
 var initialized = false;
+var passport = require('passport');
 
 module.exports = (req, res, next)=>{
   if(!initialized){
@@ -19,7 +20,6 @@ function load(app, fn){
   var posts = traceur.require(__dirname + '/../routes/posts.js');
   var messages = traceur.require(__dirname + '/../routes/messages.js');
 
-  var passport = require('passport');
   require('../config/passport')(passport);
 
   app.get('/', dbg, home.index);
@@ -27,10 +27,12 @@ function load(app, fn){
   app.get('/login', dbg, users.login);
   app.get('/signup', dbg, users.signup);
   app.get('/profile', dbg, isLoggedIn, users.profile);
-  app.post('/profile/:id', dbg, users.updateProfile);
+  app.post('/profile', dbg, users.updateProfile);
   app.get('/location', dbg, isLoggedIn, users.location);
   app.post('/location', dbg, users.addCoords);
-  app.get('/dashboard/:id', dbg, isLoggedIn, users.dashboard);
+  app.get('/dashboard', dbg, isLoggedIn, users.dashboard);
+  app.get('/neighbors', dbg, isLoggedIn, users.neighbors);
+  app.get('/neighborhood', dbg, isLoggedIn, users.neighborhood);
   app.get('/meet/:id', dbg, isLoggedIn, users.show);
   app.get('/logout', dbg, isLoggedIn, users.logout);
 
@@ -40,6 +42,7 @@ function load(app, fn){
   app.get('/message/:toId', dbg, isLoggedIn, messages.new);
   app.post('/message/:toId', dbg, messages.create);
   app.get('/show/:mId', isLoggedIn, messages.show);
+  app.get('/reply/:toId', dbg, isLoggedIn, messages.new);
 
   app.post('/signup', passport.authenticate('local-signup', {
 		successRedirect : '/profile',
@@ -57,10 +60,8 @@ function load(app, fn){
 	app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
 	app.get('/auth/facebook/callback',
-		passport.authenticate('facebook', {
-			successRedirect : '/profile',
-			failureRedirect : '/'
-		}));
+    passport.authenticate('facebook', {successRedirect : '/profile', failureRedirect : '/'})
+  );
 
   console.log('Routes Loaded');
   fn();

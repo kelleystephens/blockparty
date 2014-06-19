@@ -7,21 +7,24 @@ var Message = traceur.require(__dirname + '/../models/message.js');
 var User = traceur.require(__dirname + '/../models/user.js');
 
 exports.new = (req, res)=>{
-  User.findById(req.user._id, fromUser=>{
-    User.findById(req.params.toId, toUser=>{
-      res.render('message/new', {fromUser: fromUser, toUser: toUser, title: 'Write a Post'});
-    });
+  var fromUser = req.user;
+  User.findById(req.params.toId, (err, toUser)=>{
+    res.render('messages/new', {fromUser: fromUser, toUser: toUser, title: 'Write a Post'});
   });
 };
 
 exports.create = (req, res)=>{
   Message.create(req.body, msg=>{
-    res.redirect(`/meet/${msg.toUserId}`);
+    res.redirect('/dashboard');
   });
 };
 
 exports.show = (req, res)=>{
   Message.findById(req.params.mId, msg=>{
-
+    User.findById(msg.toUserId, (err, toUser)=>{
+      User.findById(msg.fromUserId, (err, fromUser)=>{
+        res.render('messages/show', {fromUser:fromUser, toUser:toUser, message:msg, title: 'Message'});
+      });
+    });
   });
 };

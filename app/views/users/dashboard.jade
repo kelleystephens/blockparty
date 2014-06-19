@@ -3,6 +3,16 @@ extends ../shared/template
 block content
   h1 Dashboard
   h3= user.name
-  each post in posts
-    h3= post.subject
-    h3= post.body
+  if(posts)
+    each post in posts
+      h3= post.subject
+      h3= post.body
+  if(messages)
+    each message in messages
+      a(href='/show/#{message._id}') Read Message
+
+  a(href='/neighbors') Meet Your Street!
+  a(href='/neighborhood') Neighborhood Info
+  a(href='/profileEdit') Edit Profile
+  a(href='/location') Change Address
+  a(href='/meet/#{user._id}') View Profile

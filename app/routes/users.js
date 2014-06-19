@@ -52,15 +52,29 @@ exports.dashboard = (req, res)=>{
     });
     Post.findByUserId(userId, posts=>{
       Message.findByToUserId(req.user._id, msgs=>{
-        res.render('users/dashboard', {user: req.user, posts:posts, messages:msgs, title: 'Dashboard'});
+        res.render('users/dashboard', {user:req.user, posts:posts, messages:msgs, title: 'Dashboard'});
       });
     });
   });
 };
 
-exports.meet = (req, res)=>{
-  User.findById();
-  res.render('users/show', {user: req.user, title: 'Location'});
+exports.neighbors = (req, res)=>{
+  var user = req.user;
+  User.findByLocation(user, neighbors=>{
+    res.render('users/neighbors', {user:user, neighbors:neighbors, title: 'Neighbors'});
+  });
+};
+
+exports.show = (req, res)=>{
+  var user = req.user;
+  User.findById(req.params.id, (err, user2)=>{
+    res.render('users/show', {user:user, user2:user2, title: `${user2.name}`});
+  });
+};
+
+exports.neighborhood = (req, res)=>{
+  var user = req.user;
+  res.render('users/neighborhood', {user:user, title: 'Neighborhood'});
 };
 
 exports.logout = (req, res)=>{

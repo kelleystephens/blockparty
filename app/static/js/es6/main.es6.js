@@ -25,7 +25,7 @@
         var lat = results[0].geometry.location.lat();
         var lng = results[0].geometry.location.lng();
         ajax('/location', 'post', {address:address, coordinates:[lat, lng]}, obj=>{
-          window.location= `/dashboard/${obj._id}`;
+          window.location= '/dashboard';
         });
       }
     });

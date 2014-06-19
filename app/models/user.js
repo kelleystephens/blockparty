@@ -115,11 +115,12 @@ class User {
     }
   }
 
+  //find all users within a half mile
   static findByLocation(obj, fn){
     var lat = obj.coordinates[0] * 1;
     var lng = obj.coordinates[1] * 1;
     var oneMile = 0.000250;
-    var maxdistance = 0.5 * oneMile;
+    var maxdistance = 0.25 * oneMile;
     userCollection.find({coordinates:{$nearSphere:[lat, lng],$maxDistance:maxdistance}}).toArray(function(err, records){
       records = records.map(r=>_.create(User.prototype, r));
       fn(records);

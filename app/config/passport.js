@@ -69,7 +69,7 @@ module.exports = function(passport) {
   },
   function(req, email, password, done) {
 
-    userCollection.findOne({ 'email' :  email }, function(err, user) {
+    userCollection.findOne({ 'local.email' :  email }, function(err, user) {
 
       user = _.create(User.prototype, user);
 
@@ -136,7 +136,6 @@ module.exports = function(passport) {
         user.facebook.token = token;
         user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
         user.facebook.email = profile.emails[0].value;
-        user.facebook.photos = profile.photos;
 
         user.save(function(err) {
           if (err){

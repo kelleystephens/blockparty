@@ -1,0 +1,12 @@
+extends ../shared/template
+
+block content
+  h5 Read Message
+  .fromUser From: #{fromUser.name}
+  .toUser To: #{toUser.name}
+  .date= moment(message.date).format('MM/DD/YYYY')
+  .subject= message.subject
+  .body= message.body
+
+
+  a(href='/reply/#{fromUser._id}') Reply

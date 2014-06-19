@@ -1,0 +1,16 @@
+extends ../shared/template
+
+block content
+  h1 #{user.name}'s Neighbors!
+  if(neighbors)
+    each neighbor in neighbors
+      if(neighbor._id.toString() !== user._id.toString())
+        a(href='/meet/#{neighbor._id}') #{neighbor.name}
+  #map
+
+block scripts
+  script.
+    var user = !{JSON.stringify(user)}
+  script.
+    var neighbors = !{JSON.stringify(neighbors)}
+  script(src='/js/es6/compiled/map.js')

@@ -11,6 +11,6 @@ exports.new = (req, res)=>{
 
 exports.create = (req, res)=>{
   Post.create(req.body, req.user, p=>{
-    res.redirect(`/dashboard/${req.user._id}`);
+    res.redirect('/dashboard');
   });
 };
