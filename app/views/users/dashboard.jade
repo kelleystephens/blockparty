@@ -27,7 +27,7 @@ block content
       if(post.type === 'event')
         if(post.rsvp.length)
           each reply in post.rsvp
-            if(reply.id = !user._id)
+            if(reply.id.toString() !== user._id.toString())
               h5 RSVP:
               form(action='/rsvp/#{post._id}', method='post')
                 button(name='attend', value='yes') I'll Be There!
