@@ -26,7 +26,11 @@ exports.updateProfile = (req, res)=>{
     form.parse(req, (err, fields, files)=>{
       fields.photo = files.photo;
       u.update(fields, u=>{
-        res.redirect('/location');
+        if(u.address){
+          res.redirect('/dashboard');
+        }else{
+          res.redirect('/location');
+        }
       });
     });
   });

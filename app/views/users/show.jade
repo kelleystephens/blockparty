@@ -3,3 +3,9 @@ extends ../shared/template
 block content
   h1 Meet #{user2.name}
   a(href='/message/#{user2._id}') Send #{user2.name} a message
+  div#house(style='position:absolute; left:410px; top: 8px; width: 400px; height: 300px;')
+
+block scripts
+  script.
+    var user = !{JSON.stringify(user2)}
+  script(src='/js/es6/compiled/house.js')

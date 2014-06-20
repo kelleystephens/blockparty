@@ -11,6 +11,7 @@
     getViolations();
     getFire();
     getPolice();
+    getEvents();
   }
 
   function getPermits(){
@@ -92,6 +93,18 @@
                             <p>Commander: ${closest.precinct_commander}</p>
                             <p>Phone Number: ${closest.phone_number}</p>
                             <div>Website: <a href='${closest.website.url}'>${closest.website.url}</a></div>`);
+    });
+  }
+
+  function getEvents(){
+    var url = `http://data.nashville.gov/resource/vygj-v677.json?$order=date DESC&$limit=10`;
+    $.getJSON(url, function(data) {
+      $.each(data, (i, e)=>{
+        var date = moment(e.date).format('MM/DD/YYYY');
+        var event = e.event;
+        var location = e.location;
+        $('#events').append(`<p>Event: ${event}</p><p>Date: ${date}</p><p>Location: ${location}</p>`);
+      });
     });
   }
 

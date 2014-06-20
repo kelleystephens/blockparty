@@ -3,16 +3,35 @@ extends ../shared/template
 block content
   h1 Dashboard
   h3= user.name
+  h3= user.stars
+  if(user.stars < 16)
+    h4 Social Status: Wallflower (#{user.stars} stars)
+  if(user.stars > 15)
+    h4 Social Status: Coming out of your shell (#{user.stars} stars)
+  if(user.stars > 30)
+    h4 Social Status: Neighbourly (#{user.stars} stars)
+  if(user.stars > 45)
+    h4 Social Status: Social Butterfly/Socialite (#{user.stars} stars)
+  if(user.stars > 60)
+    h4 Social Status: Party Animal/Life of the Party (#{user.stars} stars)
   if(posts)
     each post in posts
       h3= post.subject
       h3= post.body
+      if(post.comments)
+        each comment in post.comments
+          h6 #{comment.name}'s says:
+          h6= comment.content
+      form(action='/comment/#{post._id}', method='post')
+        input(name='content', type=text, placeholder='Add a comment')
+        button Add
   if(messages)
     each message in messages
       a(href='/show/#{message._id}') Read Message
 
+  a(href='/post') Post on the Msg Board!
   a(href='/neighbors') Meet Your Street!
   a(href='/neighborhood') Neighborhood Info
-  a(href='/profileEdit') Edit Profile
+  a(href='/profile') Edit Profile
   a(href='/location') Change Address
   a(href='/meet/#{user._id}') View Profile

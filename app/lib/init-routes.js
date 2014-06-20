@@ -38,6 +38,7 @@ function load(app, fn){
 
   app.get('/post', dbg, isLoggedIn, posts.new);
   app.post('/post', dbg, posts.create);
+  app.post('/comment/:pId', dbg, posts.comment);
 
   app.get('/message/:toId', dbg, isLoggedIn, messages.new);
   app.post('/message/:toId', dbg, messages.create);

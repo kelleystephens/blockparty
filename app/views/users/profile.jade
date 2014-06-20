@@ -3,7 +3,7 @@ extends ../shared/template
 block content
   h1#profilesetup Let's Set Up Your Profile!
 
-  #wrapper
+  #rapper
     #steps
         form#formElem(name='formElem', action='/profile', method='post', enctype='multipart/form-data')
           fieldset.step
@@ -11,9 +11,14 @@ block content
             p
               label.setup Full Name
               input#name(name='name', autofocus=true, placeholder='John Doe', value=user.name, required, style='text-transform: capitalize')
-            p
-              label.setup Upload a Picture
-              input(type='file', name='photo', required)
+            if(!user.photo)
+              p
+                label.setup Upload a Picture
+                input(type='file', name='photo', required)
+            else
+              p
+                label.setup Change your Picture
+                input(type='file', name='photo')
             p
               label.setup Tell Us More About Yourself!
               textarea#about(name='about' rows='10' columns='50' placeholder='Hobbies, Favorites, Likes, Dislikes') #{user.about}
@@ -22,26 +27,61 @@ block content
             legend.family Family
             p
               label.setup Spouse
-              select#spouse(name='spouse')
-                option(value='') NA
-                option(value='husband') Husband
-                option(value='wife') Wife
-              input#spouseName(name='spouseName', placeholder='Name (leave blank if NA)', style='text-transform: capitalize')
-            p
-              label.setup Children
-              select.kid(name='kids')
-                option(value='') NA
-                option(value='son') Son
-                option(value='daughter') Daughter
-              input.kidName(name='kidName', placeholder='Name (leave blank if NA)', style='text-transform: capitalize')
-              a#addKid(href='#') Add another child
+              if(user.spouse)
+                select#spouse(name='spouse')
+                  option(value='', selected=user.spouse.type === '') NA
+                  option(value='husband', selected=user.spouse.type === 'Husband') Husband
+                  option(value='wife', selected=user.spouse.type === 'Wife') Wife
+                input#spouseName(name='spouseName', placeholder='Name (leave blank if NA)', style='text-transform: capitalize', value= user.spouse.name)
+              else
+                select#spouse(name='spouse')
+                  option(value='') NA
+                  option(value='husband') Husband
+                  option(value='wife') Wife
+                input#spouseName(name='spouseName', placeholder='Name (leave blank if NA)', style='text-transform: capitalize')
+            if(user.kids)
+              p.children
+                label.setup Children
+                each kid in user.kids
+                  span.holdKid
+                    select.kid(name='kids')
+                      option(value='', selected=kid.type === '') NA
+                      option(value='son', selected=kid.type === 'Son') Son
+                      option(value='daughter', selected=kid.type === 'Daughter') Daughter
+                    input.kidName(name='kidName', placeholder='Name (leave blank if NA)', style='text-transform: capitalize', value= kid.name)
+                    a.remove X
+                a#addKid(href='#') Add another child
+            else
+              p.children
+                label.setup Children
+                span.holdKid
+                  select.kid(name='kids')
+                    option(value='') NA
+                    option(value='son') Son
+                    option(value='daughter') Daughter
+                  input.kidName(name='kidName', placeholder='Name (leave blank if NA)', style='text-transform: capitalize')
+                  a.remove X
+                a#addKid Add another child
           fieldset.step
             legend.pets Pets
-            p
-              label.setup Pet
-              input.pet(name='pets', autofocus=true, placeholder='Animal Type (leave blank if NA)', value=user.pet)
-              input.petName(name='petName', placeholder='Name (leave blank if NA)', value=user.petName, style='text-transform: capitalize')
-              a#addPet(href='#') Add another pet
+            if(user.pets)
+              p.pets
+                label.setup Pet
+                each pet in user.pets
+                  span.holdPet
+                    input.pet(name='pets', autofocus=true, placeholder='Animal Type (leave blank if NA)', value=pet.type)
+                    input.petName(name='petName', placeholder='Name (leave blank if NA)', value=pet.name, style='text-transform: capitalize')
+                    a.remove X
+                a#addPet(href='#') Add another pet
+            else
+              p.pets
+                label.setup Pet
+                span.holdPet
+                  input.pet(name='pets', autofocus=true, placeholder='Animal Type (leave blank if NA)')
+                  input.petName(name='petName', placeholder='Name (leave blank if NA)', style='text-transform: capitalize')
+                  a.remove X
+                a#addPet(href='#') Add another pet
+
           fieldset.step
             legend.account Account
             p.submit

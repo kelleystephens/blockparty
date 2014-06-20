@@ -9,6 +9,8 @@
   function init(){
     $('#addKid').click(addKid);
     $('#addPet').click(addPet);
+    $('.children').on('click', '.remove', removeKid);
+    $('.pets').on('click', '.remove', removePet);
     $('#locate').click(locate);
   }
 
@@ -32,12 +34,24 @@
     e.preventDefault();
   }
 
+  function removeKid(){
+    if($('.holdKid').length > 1){
+      $(this).parent().remove();
+    }
+  }
+
+  function removePet(){
+    if($('.holdPet').length > 1){
+      $(this).parent().remove();
+    }
+  }
+
   function addKid(){
-    $('.kidName:last').after('input').after('<select class="kid" name="kids"><option value="na">NA</option><option value="son" selected=user.kids === "[son]">Son</option><option value="daughter" selected=user.kids === "[daughter]">Daughter</option></select><input class="kidName" name="kidName" placeholder="Name (leave blank if NA)"></input>');
+    $('.holdKid:last').after('<span class="holdKid"><select class="kid" name="kids"><option value="na">NA</option><option value="son">Son</option><option value="daughter">Daughter</option></select><input class="kidName" name="kidName" placeholder="Name (leave blank if NA)"></input><a class="remove">X</a></span>');
   }
 
   function addPet(){
-    $('.petName:last').after('<input class="pet" name="pets" placeholder="Animal Type (leave blank if NA)"></input><input class="petName" name="petName" placeholder="Name (leave blank if NA)"></input>');
+    $('.petName:last').after('<span class="holdPet"><input class="pet" name="pets" placeholder="Animal Type (leave blank if NA)"></input><input class="petName" name="petName" placeholder="Name (leave blank if NA)"></input><a class="remove">X</a></span>');
   }
 })();
 

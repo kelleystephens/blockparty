@@ -70,6 +70,7 @@ module.exports = function(passport) {
   function(req, email, password, done) {
 
     userCollection.findOne({ 'local.email' :  email }, function(err, user) {
+      user.stars += 1;
 
       user = _.create(User.prototype, user);
 
@@ -85,7 +86,14 @@ module.exports = function(passport) {
         return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
       }
 
-      return done(null, user);
+      userCollection.save(user, function(err) {
+          if (err){
+            throw err;
+          }
+          return done(null, user);
+      });
+
+      // return done(null, user);
     });
   }));
 
@@ -136,6 +144,7 @@ module.exports = function(passport) {
         user.facebook.token = token;
         user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
         user.facebook.email = profile.emails[0].value;
+        user.stars += 1;
 
         user.save(function(err) {
           if (err){

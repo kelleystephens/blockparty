@@ -3,8 +3,8 @@
 'use strict';
 
 var postCollection = global.nss.db.collection('posts');
-// var Mongo = require('mongodb');
-// var _ = require('lodash');
+var Mongo = require('mongodb');
+var _ = require('lodash');
 
 class Post {
   static create(obj, user, fn){
@@ -23,24 +23,19 @@ class Post {
     });
   }
 
-  // static findById(id, fn){
-  //   id = Mongo.ObjectID(id);
-  //   userCollection.findOne({_id: id}, (err, user)=>{
-  //     user = _.create(User.prototype, user);
-  //     fn(null, user);
-  //   });
-  // }
+  static findById(pId, fn){
+    var id = Mongo.ObjectID(pId);
+    postCollection.findOne({_id: id}, (err, post)=>{
+      post = _.create(Post.prototype, post);
+      fn(null, post);
+    });
+  }
 
-  // static findByLocation(obj, fn){
-  //   var lat = obj.coordinates[0] * 1;
-  //   var lng = obj.coordinates[1] * 1;
-  //   var oneMile = 0.000250;
-  //   var maxdistance = 0.5 * oneMile;
-  //   userCollection.find({coordinates:{$nearSphere:[lat, lng],$maxDistance:maxdistance}}).toArray(function(err, records){
-  //     records = records.map(r=>_.create(User.prototype, r));
-  //     fn(records);
-  //   });
-  // }
+  addComment(obj, name, fn){
+    var comment = {content:obj.content, name:name};
+    this.comments.push(comment);
+    postCollection.save(this, ()=>fn(this));
+  }
 }
 
 module.exports = Post;

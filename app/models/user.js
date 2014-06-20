@@ -23,6 +23,9 @@ class User {
       email:    String,
       name:     String
     };
+
+    this.stars = 1;
+
   }
 
   save(fn){
@@ -69,6 +72,11 @@ class User {
     userCollection.save(this, ()=>fn(this));
   }
 
+  addStar(fn){
+    this.stars += 1;
+    userCollection.save(this, ()=>fn(this));
+  }
+
   update(obj, fn){
     this.name = obj.name[0].toLowerCase().charAt(0).toUpperCase() + obj.name[0].slice(1);
     this.about = obj.about[0];
@@ -79,8 +87,6 @@ class User {
     this.spouse.name = spouseName;
     this.kids = [];
     this.pets = [];
-    var filename = obj.photo[0].originalFilename.replace(/\s/g,'-');
-    this.photo = `/img/${this._id.toString()}/${filename}`;
 
     //gets props and values for kids
     for(var i = 0; i < obj.kids.length; i++){
@@ -97,21 +103,29 @@ class User {
       pet.name = obj.petName[j].charAt(0).toUpperCase() + obj.petName[j].slice(1).toLowerCase();
       this.pets.push(pet);
     }
-    //create folder for pic and saves it
-    var path = obj.photo[0].path;
-    if(path[0] !== '/'){path = __dirname + '/' + path;}
-    var userDir = `${__dirname}/../static/img/${this._id.toString()}`;
-    var fileDir =  `${userDir}/${filename}`;
-    if(!fs.existsSync(userDir)){
-      fs.mkdirSync(userDir);
-      fs.renameSync(path, fileDir);
-      userCollection.save(this, ()=>fn(this));
-    }else{
-      rimraf(userDir, ()=>{
+
+    if(obj.photo[0].size){
+      var filename = obj.photo[0].originalFilename.replace(/\s/g,'-');
+      this.photo = `/img/${this._id.toString()}/${filename}`;
+
+      //create folder for pic and saves it
+      var path = obj.photo[0].path;
+      if(path[0] !== '/'){path = __dirname + '/' + path;}
+      var userDir = `${__dirname}/../static/img/${this._id.toString()}`;
+      var fileDir =  `${userDir}/${filename}`;
+      if(!fs.existsSync(userDir)){
         fs.mkdirSync(userDir);
         fs.renameSync(path, fileDir);
         userCollection.save(this, ()=>fn(this));
-      });
+      }else{
+        rimraf(userDir, ()=>{
+          fs.mkdirSync(userDir);
+          fs.renameSync(path, fileDir);
+          userCollection.save(this, ()=>fn(this));
+        });
+      }
+    }else{
+      userCollection.save(this, ()=>fn(this));
     }
   }
 
