@@ -21,7 +21,7 @@ exports.profile = (req, res)=>{
 };
 
 exports.updateProfile = (req, res)=>{
-  User.findById(req.user._id, (e,u)=>{
+  User.findById(req.user._id, u=>{
     var form = new multiparty.Form();  //this is just how you use multiparty to pull pics
     form.parse(req, (err, fields, files)=>{
       fields.photo = files.photo;
@@ -41,7 +41,7 @@ exports.location = (req, res)=>{
 };
 
 exports.addCoords = (req, res)=>{
-  User.findById(req.user._id, (e,u)=>{
+  User.findById(req.user._id, u=>{
     u.addCoords(req.body, user=>{
       res.send(user);
     });
@@ -50,11 +50,11 @@ exports.addCoords = (req, res)=>{
 
 exports.dashboard = (req, res)=>{
   User.findByLocation(req.user, users=>{
-    var userId = [];
+    var userIds = [];
     users.forEach(u=>{
-      userId.push(u._id);
+      userIds.push(u._id);
     });
-    Post.findByUserId(userId, posts=>{
+    Post.findByUserId(userIds, req.user._id, posts=>{
       Message.findByToUserId(req.user._id, msgs=>{
         res.render('users/dashboard', {user:req.user, posts:posts, messages:msgs, title: 'Dashboard'});
       });
@@ -71,7 +71,7 @@ exports.neighbors = (req, res)=>{
 
 exports.show = (req, res)=>{
   var user = req.user;
-  User.findById(req.params.id, (err, user2)=>{
+  User.findById(req.params.id, user2=>{
     res.render('users/show', {user:user, user2:user2, title: `${user2.name}`});
   });
 };

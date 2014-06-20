@@ -8,4 +8,9 @@ block content
   form(action='/post', method='post')
     input(name='subject', type='text', autofocus=true, placeholder='Subject Here', required)
     textarea(name='body', type='text', placeholder='Message Content Here', required)
+    select(name='type')
+      option(value='urgent') Urgent
+      option(value='event') Event
+      option(value='update') Update
+      option(value='general') General
     button#post Post to Message Board

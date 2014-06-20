@@ -48,7 +48,7 @@ describe('User', function(){
       });
     });
     it('should return null - no such id', function(done){
-      User.findById('a923456789abcdef01234568', function(user){
+      User.findById('abc3456789abcdef01234568', function(user){
         expect(user).to.be.null;
         done();
       });
@@ -58,14 +58,11 @@ describe('User', function(){
   describe('#addCoords', function(){
     it('should add lat and lng to user', function(done){
       User.findById('0123456789abcdef01234568', function(u){
-        u.addCoords({address: '123 Main Street', city:'Nashville', state:'TN', zip:'37208', coordinates:['36.16958', '-86.798264']}, function(user){
+        u.addCoords({address: '123 Main Street, Nashville, TN 37208', coordinates:['36.16958', '-86.798264']}, function(user){
           expect(user.coordinates).to.be.an('array');
           expect(user.coordinates[0]).to.equal(36.16958);
           expect(user.coordinates[1]).to.equal(-86.798264);
-          expect(user.address).to.equal('123 Main Street');
-          expect(user.city).to.equal('Nashville');
-          expect(user.state).to.equal('TN');
-          expect(user.zip).to.equal('37208');
+          expect(user.address).to.equal('123 Main Street, Nashville, TN 37208');
           done();
         });
       });
@@ -87,19 +84,19 @@ describe('User', function(){
       });
     });
   });
-
-  describe('findByLocation', function(){
-    it('should find users by their location', function(done){
-      var obj = {coordinates: ['36.168987', '-86.79953799999998']};
-      User.findByLocation(obj, function(users){
-        expect(users).to.be.an('array');
-        expect(users[0]).to.be.ok;
-        expect(users[0]).to.be.instanceof(User);
-        expect(users[0]._id).to.be.instanceof(Mongo.ObjectID);
-        expect(users[0].email).to.equal('sue@aol.com');
-        done();
-      });
-    });
-  });
+  //
+  // describe('findByLocation', function(){
+  //   it('should find users by their location', function(done){
+  //     var obj = {coordinates: ['36.168987', '-86.79953799999998']};
+  //     User.findByLocation(obj, function(users){
+  //       expect(users).to.be.an('array');
+  //       expect(users[0]).to.be.ok;
+  //       expect(users[0]).to.be.instanceof(User);
+  //       expect(users[0]._id).to.be.instanceof(Mongo.ObjectID);
+  //       expect(users[0].email).to.equal('sue@aol.com');
+  //       done();
+  //     });
+  //   });
+  // });
 
 });

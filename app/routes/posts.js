@@ -11,7 +11,7 @@ exports.new = (req, res)=>{
 };
 
 exports.create = (req, res)=>{
-  User.findById(req.user._id, (e,u)=>{
+  User.findById(req.user._id, u=>{
     u.addStar(user=>{
       Post.create(req.body, user, p=>{
         res.redirect('/dashboard');
@@ -21,13 +21,22 @@ exports.create = (req, res)=>{
 };
 
 exports.comment = (req, res)=>{
-  User.findById(req.user._id, (e,u)=>{
+  User.findById(req.user._id, u=>{
     u.addStar(user=>{
-      Post.findById(req.params.pId, (e,p)=>{
+      Post.findById(req.params.pId, p=>{
         p.addComment(req.body, user.name, p=>{
           res.redirect('/dashboard');
         });
       });
+    });
+  });
+};
+
+exports.rsvp = (req, res)=>{
+  var postId = req.params.pId;
+  Post.findById(postId, post=>{
+    post.reply(req.body, req.user, post=>{
+      res.redirect('/dashboard');
     });
   });
 };

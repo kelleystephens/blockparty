@@ -44,6 +44,19 @@ class Message {
     });
   }
 
+  read(fn){
+    this.isRead = true;
+    messageCollection.save(this, ()=>fn(this));
+  }
+
+  get klass(){
+    if(!this.isRead){
+      return 'unread';
+    }else{
+      return 'read';
+    }
+  }
+
 }
 
 module.exports = Message;

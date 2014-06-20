@@ -28,25 +28,35 @@ class User {
 
   }
 
-  save(fn){
-    userCollection.save(this, ()=>fn());
-  }
-
-  // generating a hash
-  generateHash(password) {
-    return bcrypt.hashSync(password, 8);
-  }
-
-  // checking if password is valid
-  validPassword(password) {
-    return bcrypt.compareSync(password, this.local.password);
+  static findByIdPassport(id, fn){
+    id = Mongo.ObjectID(id);
+    userCollection.findOne({_id: id}, (err, user)=>{
+      user = _.create(User.prototype, user);
+      fn(null, user);
+    });
   }
 
   static findById(id, fn){
     id = Mongo.ObjectID(id);
     userCollection.findOne({_id: id}, (err, user)=>{
-      user = _.create(User.prototype, user);
-      fn(null, user);
+      if(user){
+        user = _.create(User.prototype, user);
+        fn(user);
+      }else{
+        fn(null);
+      }
+    });
+  }
+
+  //find all users within a half mile
+  static findByLocation(obj, fn){
+    var lat = obj.coordinates[0] * 1;
+    var lng = obj.coordinates[1] * 1;
+    var oneMile = 0.000250;
+    var maxdistance = 0.25 * oneMile;
+    userCollection.find({coordinates:{$nearSphere:[lat, lng],$maxDistance:maxdistance}}).toArray(function(err, records){
+      records = records.map(r=>_.create(User.prototype, r));
+      fn(records);
     });
   }
 
@@ -129,16 +139,18 @@ class User {
     }
   }
 
-  //find all users within a half mile
-  static findByLocation(obj, fn){
-    var lat = obj.coordinates[0] * 1;
-    var lng = obj.coordinates[1] * 1;
-    var oneMile = 0.000250;
-    var maxdistance = 0.25 * oneMile;
-    userCollection.find({coordinates:{$nearSphere:[lat, lng],$maxDistance:maxdistance}}).toArray(function(err, records){
-      records = records.map(r=>_.create(User.prototype, r));
-      fn(records);
-    });
+  save(fn){
+    userCollection.save(this, ()=>fn());
+  }
+
+  // generating a hash
+  generateHash(password) {
+    return bcrypt.hashSync(password, 8);
+  }
+
+  // checking if password is valid
+  validPassword(password) {
+    return bcrypt.compareSync(password, this.local.password);
   }
 }
 

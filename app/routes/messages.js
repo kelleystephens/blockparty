@@ -8,7 +8,7 @@ var User = traceur.require(__dirname + '/../models/user.js');
 
 exports.new = (req, res)=>{
   var fromUser = req.user;
-  User.findById(req.params.toId, (err, toUser)=>{
+  User.findById(req.params.toId, toUser=>{
     res.render('messages/new', {fromUser: fromUser, toUser: toUser, title: 'Write a Post'});
   });
 };
@@ -21,9 +21,11 @@ exports.create = (req, res)=>{
 
 exports.show = (req, res)=>{
   Message.findById(req.params.mId, msg=>{
-    User.findById(msg.toUserId, (err, toUser)=>{
-      User.findById(msg.fromUserId, (err, fromUser)=>{
-        res.render('messages/show', {fromUser:fromUser, toUser:toUser, message:msg, title: 'Message'});
+    msg.read(msg=>{
+      User.findById(msg.toUserId, toUser=>{
+        User.findById(msg.fromUserId, fromUser=>{
+          res.render('messages/show', {fromUser:fromUser, toUser:toUser, message:msg, title: 'Message'});
+        });
       });
     });
   });
