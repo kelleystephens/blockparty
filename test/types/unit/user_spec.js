@@ -55,6 +55,20 @@ describe('User', function(){
     });
   });
 
+  describe('findByLocation', function(){
+    it('should find users by their location', function(done){
+      var obj = {coordinates: ['36.168987', '-86.79953799999998']};
+      User.findByLocation(obj, function(users){
+        expect(users).to.be.an('array');
+        expect(users[0]).to.be.ok;
+        expect(users[0]).to.be.instanceof(User);
+        expect(users[0]._id).to.be.instanceof(Mongo.ObjectID);
+        expect(users[0].email).to.equal('sue@aol.com');
+        done();
+      });
+    });
+  });
+
   describe('#addCoords', function(){
     it('should add lat and lng to user', function(done){
       User.findById('0123456789abcdef01234568', function(u){
@@ -69,34 +83,31 @@ describe('User', function(){
     });
   });
 
-  describe('#update', function(){
-    it('should update a user', function(done){
+  describe('#addStar', function(){
+    it('should add 1 star to the user', function(done){
       User.findById('0123456789abcdef01234568', function(u){
-        var obj = {name: ['Sue Smith'], description:['I am signing up for your app'], photo: [{originalFilename: 'pic.jpg', path: '../../test/fixtures/copy/pic.jpg', size: 10}]};
-        u.update(obj, function(user){
-          expect(user).to.be.ok;
-          expect(user).to.be.instanceof(User);
-          expect(user._id.toString()).to.deep.equal('0123456789abcdef01234568');
-          expect(user.name).to.equal('Sue Smith');
-          expect(user.description).to.equal('I am signing up for your app');
+        u.addStar(function(user){
+          expect(user.stars).to.equal(2);
           done();
         });
       });
     });
   });
-  //
-  // describe('findByLocation', function(){
-  //   it('should find users by their location', function(done){
-  //     var obj = {coordinates: ['36.168987', '-86.79953799999998']};
-  //     User.findByLocation(obj, function(users){
-  //       expect(users).to.be.an('array');
-  //       expect(users[0]).to.be.ok;
-  //       expect(users[0]).to.be.instanceof(User);
-  //       expect(users[0]._id).to.be.instanceof(Mongo.ObjectID);
-  //       expect(users[0].email).to.equal('sue@aol.com');
-  //       done();
-  //     });
-  //   });
-  // });
+
+  describe('#update', function(){
+    it('should update a user', function(done){
+      User.findById('0123456789abcdef01234568', function(u){
+        var obj = {name: ['Sue Smith'], about:['I am signing up for your app'], spouse:['husband'], spouseName:['John'], kids:['son', 'son'], kidName:['Bob', 'Tom'], pets:['cat'], petName:['fluffy'], photo: [{originalFilename: 'pic.jpg', path: '../../test/fixtures/copy/pic.jpg', size: 10}]};
+        u.update(obj, function(user){
+          expect(user).to.be.ok;
+          expect(user).to.be.instanceof(User);
+          expect(user._id.toString()).to.deep.equal('0123456789abcdef01234568');
+          expect(user.name).to.equal('Sue Smith');
+          expect(user.about).to.equal('I am signing up for your app');
+          done();
+        });
+      });
+    });
+  });
 
 });

@@ -28,6 +28,7 @@ class User {
 
   }
 
+  //formatted for passportjs' find by id
   static findByIdPassport(id, fn){
     id = Mongo.ObjectID(id);
     userCollection.findOne({_id: id}, (err, user)=>{
@@ -139,16 +140,16 @@ class User {
     }
   }
 
-  save(fn){
-    userCollection.save(this, ()=>fn());
-  }
+  // save(fn){
+  //   userCollection.save(this, ()=>fn());
+  // }
 
-  // generating a hash
+  // generating a hash, passport
   generateHash(password) {
     return bcrypt.hashSync(password, 8);
   }
 
-  // checking if password is valid
+  // checking if password is valid, passport
   validPassword(password) {
     return bcrypt.compareSync(password, this.local.password);
   }

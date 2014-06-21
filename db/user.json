@@ -1,5 +1,5 @@
 [
-  {"email":"sue@aol.com", "password":"5678", "_id":"0123456789abcdef01234568", "coordinates": ["36.168987", "-86.79953799999998"]},
+  {"email":"sue@aol.com", "password":"5678", "_id":"0123456789abcdef01234568", "stars":1, "coordinates": ["36.168987", "-86.79953799999998"]},
   {"email":"sam@aol.com", "password":"90ab", "_id":"0123456789abcdef01234569", "coordinates": ["36.16957", "-86.798263"]},
   {"email":"amy@aol.com", "password":"cdef", "_id":"0123456789abcdef01234570", "coordinates": ["7.345356345", "4.30430594"]},
   {"email":"cat@aol.com", "password":"ghij", "_id":"0123456789abcdef01234571", "coordinates": ["36.150695", "-86.69000799999998"]}
