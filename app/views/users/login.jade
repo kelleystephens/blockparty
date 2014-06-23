@@ -4,16 +4,13 @@ block content
   body.body
     .container
       .col-sm-6.col-sm-offset-3
-
         form.form-5.clearfix(action='/login', method='post')
           h1
             span.fa.fa-sign-in
             | Login
           .form-group
-            //- label Email
             input.form-control(type='text', name='email', placeholder='Email Address')
           .form-group
-            //- label Password
             input.form-control(type='password', name='password', placeholder='Password')
           button(type='submit')
             i.fa.fa-arrow-right

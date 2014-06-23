@@ -2,12 +2,14 @@
     margin:0px;
     padding:0px;
 }
+
 body{
     color:#444444;
     font-size:13px;
     background: #f2f2f2;
     font-family:"Century Gothic", Helvetica, sans-serif;
 }
+
 #content{
     margin:15px auto;
     text-align:center;
@@ -15,38 +17,41 @@ body{
     position:relative;
     height:100%;
 }
+
 #rapper{
-  -moz-box-shadow:0px 0px 3px #aaa;
-  -webkit-box-shadow:0px 0px 3px #aaa;
-  box-shadow:0px 0px 3px #aaa;
   -moz-border-radius:10px;
   -webkit-border-radius:10px;
   border-radius:10px;
-  border:2px solid #fff;
-  background-color:#f9f9f9;
   width:600px;
   overflow:hidden;
   margin: auto;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1), 0 3px 2px rgba(0,0,0,0.1);
+  background: #f9f9f9;
+  background: rgba(255,255,255,0.35);
+  margin-bottom: 15px;
 }
+
 #steps{
-  width:600px;
-	/*height:320px;*/
-  overflow:hidden;
+  width: 600px;
+  overflow: hidden;
 }
+
 .step{
-    float:left;
-    width:600px;
-	/*height:320px;*/
+  float: left;
+  width: 600px;
 }
+
 #navigation{
-    height:45px;
-    background-color:#e9e9e9;
-    border-top:1px solid #fff;
-    -moz-border-radius:0px 0px 10px 10px;
-    -webkit-border-bottom-left-radius:10px;
-    -webkit-border-bottom-right-radius:10px;
-    border-bottom-left-radius:10px;
-    border-bottom-right-radius:10px;
+  height: 45px;
+  background-color: #aca197;
+  border-top: 1px solid #f0f0f0;
+  -moz-border-radius: 0px 0px 10px 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  position: relative;
+  top: 11px;
 }
 #navigation ul{
   list-style:none;
@@ -96,30 +101,15 @@ body{
     color:#666;
     text-shadow:1px 1px 1px #fff;
 }
-/*span.checked{
-    background:transparent url(../img/checked.png) no-repeat top left;
-    position:absolute;
-    top:0px;
-    left:1px;
-    width:20px;
-    height:20px;
-}
-span.error{
-    background:transparent url(../img/error.png) no-repeat top left;
-    position:absolute;
-    top:0px;
-    left:1px;
-    width:20px;
-    height:20px;
-}*/
+
 #steps form fieldset{
     border:none;
     padding-bottom:20px;
 }
 #steps form legend{
     text-align:left;
-    background-color:#f0f0f0;
-    color:#666;
+    background-color:#aca197;
+    color:#5f5953;
     font-size:24px;
     text-shadow:1px 1px 1px #fff;
     font-weight:bold;
@@ -127,14 +117,14 @@ span.error{
     width:100%;
     padding:5px 0px 5px 10px;
     margin:10px 0px;
-    border-bottom:1px solid #fff;
+    border-bottom:1px solid #f0f0f0;
     border-top:1px solid #d9d9d9;
 }
 #steps form p{
     float:left;
     clear:both;
     margin:5px 0px;
-    background-color:#f4f4f4;
+    background-color: rgba(235, 228, 223, 0.88);
     border:1px solid #fff;
     width:400px;
     padding:10px;
@@ -187,32 +177,6 @@ span.error{
     -webkit-box-shadow:none;
     box-shadow:none;
 }
-#steps form button {
-	border:none;
-	outline:none;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    color: #ffffff;
-    display: block;
-    cursor:pointer;
-    margin: 0px auto;
-    clear:both;
-    padding: 7px 25px;
-    text-shadow: 0 1px 1px #777;
-    font-weight:bold;
-    font-family:"Century Gothic", Helvetica, sans-serif;
-    font-size:22px;
-    -moz-box-shadow:0px 0px 3px #aaa;
-    -webkit-box-shadow:0px 0px 3px #aaa;
-    box-shadow:0px 0px 3px #aaa;
-    background:#4797ED;
-}
-#steps form button:hover {
-    background:#d8d8d8;
-    color:#666;
-    text-shadow:1px 1px 1px #fff;
-}
 
 .additional{
   float: right;
@@ -223,16 +187,150 @@ span.error{
   height: 60px;
 }
 
-.remove{
-  position: relative;
-  right: 105%;
-  bottom: 30px;
-}
-
 .addLabel{
   text-align: left !important;
 }
 
 #profilesetup{
+  margin-top: 0;
+  margin-bottom: 20px;
   text-align: center;
+  color: #3E4751;
+  font-weight: bold;
+}
+
+/* Link Hover Effect */
+
+a.link-effect {
+	position: relative;
+	display: inline-block;
+	margin: 15px 25px;
+	outline: none;
+	color: #7E7777;
+	text-decoration: none;
+	letter-spacing: 1px;
+	font-weight: 400;
+	text-shadow: 0 0 1px rgba(255,255,255,0.3);
+	font-size: 1.35em;
+}
+
+a.link-effect:hover,
+a.link-effect:focus {
+	outline: none;
+}
+
+a.link-effect {
+	padding: 8px 0;
+}
+
+a.link-effect::after {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	height: 4px;
+	background: rgba(0,0,0,0.1);
+	content: '';
+	opacity: 0;
+	-webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+	-moz-transition: opacity 0.3s, -moz-transform 0.3s;
+	transition: opacity 0.3s, transform 0.3s;
+	-webkit-transform: translateY(10px);
+	-moz-transform: translateY(10px);
+	transform: translateY(10px);
+}
+
+a.link-effect:hover::after,
+a.link-effect:focus::after {
+	opacity: 1;
+	-webkit-transform: translateY(0px);
+	-moz-transform: translateY(0px);
+	transform: translateY(0px);
+}
+
+.remove{
+  position: relative;
+  right: 105%;
+  bottom: 62px;
+  color: #7E7777;
+}
+
+/* Submit Button Effect */
+.button {
+  margin: .4em;
+  padding: 1em;
+  cursor: pointer;
+  background: rgba(220, 220, 220, 0.77);
+  text-decoration: none;
+  color: #666666;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.float-shadow {
+  display: inline-block;
+  position: relative;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  border-radius: 5px;
+  font-size: 2em;
+  top: 50px;
+}
+
+.float-shadow:before {
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+  content: '';
+  top: 100%;
+  left: 5%;
+  height: 10px;
+  width: 90%;
+  opacity: 0;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 80%);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform, opacity;
+  transition-property: transform, opacity;
+}
+
+.float-shadow:hover {
+  -webkit-transform: translateY(-5px);
+  transform: translateY(-5px);
+  /* move the element up by 5px */
+  outline: none;
+}
+
+.float-shadow:focus{
+  outline: none;
+}
+
+.float-shadow:hover:before {
+  opacity: 1;
+  -webkit-transform: translateY(5px);
+  transform: translateY(5px);
+  /* move the element down by 5px (it will stay in place because it's attached to the element that also moves up 5px) */
+}
+
+p.submit{
+  text-align: center;
+}
+
+#locstep{
+  padding-bottom: 0 !important;
+}
+
+#loc{
+  padding: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+#locate{
+  top: 0 !important;
+  padding: .3em 1em !important;
+
 }

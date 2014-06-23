@@ -4,14 +4,14 @@ block content
   body.body
     .container
       .col-sm-6.col-sm-offset-3
-        h1
-          span.fa.fa-sign-in
-          | Signup
-        form(action='/signup', method='post')
+        form.form-5.clearfix(action='/signup', method='post')
+          h1
+            span.fa.fa-sign-in
+            | Signup
           .form-group
-            label Email
-            input.form-control(type='text', name='email')
+            input.form-control(type='text', name='email', placeholder='Email Address')
           .form-group
-            label Password
-            input.form-control(type='password', name='password')
-          button.btn.btn-warning.btn-lg(type='submit') Signup
+            input.form-control(type='password', name='password', placeholder='Password')
+          button(type='submit')
+            i.fa.fa-arrow-right
+            span Signup

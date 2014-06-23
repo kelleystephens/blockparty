@@ -30,7 +30,8 @@
     position: house,
     pov: {
       heading: 175,
-      pitch: 0
+      pitch: 10,
+      zoom: 1
     }
   };
   var panorama = new  google.maps.StreetViewPanorama(document.getElementById('house'),panoramaOptions);

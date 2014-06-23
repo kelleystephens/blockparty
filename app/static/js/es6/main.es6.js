@@ -47,11 +47,11 @@
   }
 
   function addKid(){
-    $('.holdKid:last').after('<span class="holdKid additional"><select class="kid" name="kids"><option value="na">NA</option><option value="son">Son</option><option value="daughter">Daughter</option></select><input class="kidName" name="kidName" placeholder="Name (leave blank if NA)"></input><a class="remove"><span class="glyphicon glyphicon-trash"></span></a></span>');
+    $('.holdKid:last').after('<span class="holdKid additional"><select class="kid" name="kids"><option value="na">NA</option><option value="son">Son</option><option value="daughter">Daughter</option></select><input class="kidName" name="kidName" placeholder="Name (leave blank if NA)"></input><a class="remove link-effect"><span class="glyphicon glyphicon-trash"></span></a></span>');
   }
 
   function addPet(){
-    $('.holdPet:last').after('<span class="holdPet additional"><input class="pet" name="pets" placeholder="Animal Type (leave blank if NA)"></input><input class="petName" name="petName" placeholder="Name (leave blank if NA)"></input><a class="remove"><span class="glyphicon glyphicon-trash"></span></a></span>');
+    $('.holdPet:last').after('<span class="holdPet additional"><input class="pet" name="pets" placeholder="Animal Type (leave blank if NA)"></input><input class="petName" name="petName" placeholder="Name (leave blank if NA)"></input><a class="remove link-effect"><span class="glyphicon glyphicon-trash"></span></a></span>');
   }
 })();
 

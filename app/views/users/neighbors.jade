@@ -3,9 +3,14 @@ extends ../shared/template
 block content
   h1 #{user.name}'s Neighbors!
   if(neighbors)
-    each neighbor in neighbors
-      if(neighbor._id.toString() !== user._id.toString())
-        a(href='/meet/#{neighbor._id}') #{neighbor.name}
+    .neighbors
+      each neighbor in neighbors
+        if(neighbor._id.toString() !== user._id.toString())
+          .hexagon
+            .hex-in1
+              .hex-in2(style='background-image:url(#{neighbor.photo})')
+                a(href='/meet/#{neighbor._id}')
+          h4= neighbor.name
   #map
 
 block scripts
