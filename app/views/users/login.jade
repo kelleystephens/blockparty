@@ -1,24 +1,20 @@
 extends ../shared/template
 
 block content
-  .container
-    .col-sm-6.col-sm-offset-3
-        h1
-          span.fa.fa-sign-in
-          | Login
-        form(action='/login', method='post')
+  body.body
+    .container
+      .col-sm-6.col-sm-offset-3
+
+        form.form-5.clearfix(action='/login', method='post')
+          h1
+            span.fa.fa-sign-in
+            | Login
           .form-group
-            label Email
-            input.form-control(type='text', name='email')
+            //- label Email
+            input.form-control(type='text', name='email', placeholder='Email Address')
           .form-group
-            label Password
-            input.form-control(type='password', name='password')
-          button.btn.btn-warning.btn-lg(type='submit') Login
-    hr
-    p
-      | Need an account?
-      a(href='/signup') Signup
-    p
-      | Or go
-      a(href='/') home
-      | .
+            //- label Password
+            input.form-control(type='password', name='password', placeholder='Password')
+          button(type='submit')
+            i.fa.fa-arrow-right
+            span Login

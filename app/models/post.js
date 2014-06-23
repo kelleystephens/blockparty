@@ -7,8 +7,10 @@ var Mongo = require('mongodb');
 var _ = require('lodash');
 
 class Post {
+
   static create(obj, user, fn){
     var post = new Post();
+    post._id = Mongo.ObjectID(obj._id);
     post.userId = user._id;
     post.subject = obj.subject;
     post.body = obj.body;
@@ -17,14 +19,6 @@ class Post {
     post.comments = [];
     post.rsvp = [];
     postCollection.save(post, ()=>fn(post));
-  }
-
-  static findByUserId(arr, userId, fn){
-    var id = Mongo.ObjectID(userId);
-    postCollection.find({userId: {$in: arr}, rsvp: {$not: {$elemMatch: {id:id, attend:'no'}}}}).sort({date: -1}).toArray((err, posts)=>{
-      posts = posts.map(post=> _.create(Post.prototype, post));
-      fn(posts);
-    });
   }
 
   static findById(pId, fn){
@@ -39,7 +33,13 @@ class Post {
     });
   }
 
-
+  static findByUserId(arr, userId, fn){
+    var id = Mongo.ObjectID(userId);
+    postCollection.find({userId: {$in: arr}, rsvp: {$not: {$elemMatch: {id:id, attend:'no'}}}}).sort({date: -1}).toArray((err, posts)=>{
+      posts = posts.map(post=> _.create(Post.prototype, post));
+      fn(posts);
+    });
+  }
 
   reply(obj, user, fn){
     var response = {id:user._id, name:user.name, attend:obj.attend};

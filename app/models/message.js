@@ -9,6 +9,7 @@ var _ = require('lodash');
 class Message {
   static create(obj, fn){
     var message = new Message();
+    message._id = Mongo.ObjectID(obj._id);
     message.toUserId = Mongo.ObjectID(obj.toUserId);
     message.fromUserId = Mongo.ObjectID(obj.fromUserId);
     message.isRead = false;
@@ -19,6 +20,7 @@ class Message {
   }
 
   static findByToUserId(toUserId, fn){
+    console.log(toUserId);
     toUserId = Mongo.ObjectID(toUserId);
     messageCollection.find({toUserId:toUserId}).sort({sentDate: -1}).toArray((e,objs)=>{
       objs = objs.map(o=>_.create(Message.prototype, o));

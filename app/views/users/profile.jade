@@ -14,14 +14,14 @@ block content
             if(!user.photo)
               p
                 label.setup Upload a Picture
-                input(type='file', name='photo', required)
+                input.file(type='file', name='photo', required)
             else
               p
                 label.setup Change your Picture
                 input(type='file', name='photo')
             p
               label.setup Tell Us More About Yourself!
-              textarea#about(name='about' rows='10' columns='50' placeholder='Hobbies, Favorites, Likes, Dislikes') #{user.about}
+              textarea#about(name='about' rows='5' columns='50' placeholder='Hobbies, Favorites, Likes, Dislikes') #{user.about}
 
           fieldset.step
             legend.family Family
@@ -49,8 +49,8 @@ block content
                       option(value='son', selected=kid.type === 'Son') Son
                       option(value='daughter', selected=kid.type === 'Daughter') Daughter
                     input.kidName(name='kidName', placeholder='Name (leave blank if NA)', style='text-transform: capitalize', value= kid.name)
-                    a.remove X
-                a#addKid(href='#') Add another child
+                    a.remove: span.glyphicon.glyphicon-trash
+                label.setup.addLabel: a#addKid(href='#') Add another child
             else
               p.children
                 label.setup Children
@@ -60,8 +60,7 @@ block content
                     option(value='son') Son
                     option(value='daughter') Daughter
                   input.kidName(name='kidName', placeholder='Name (leave blank if NA)', style='text-transform: capitalize')
-                  a.remove X
-                a#addKid Add another child
+                label.setup.addLabel: a#addKid Add another child
           fieldset.step
             legend.pets Pets
             if(user.pets)
@@ -71,17 +70,15 @@ block content
                   span.holdPet
                     input.pet(name='pets', autofocus=true, placeholder='Animal Type (leave blank if NA)', value=pet.type)
                     input.petName(name='petName', placeholder='Name (leave blank if NA)', value=pet.name, style='text-transform: capitalize')
-                    a.remove X
-                a#addPet(href='#') Add another pet
+                    a.remove: span.glyphicon.glyphicon-trash
+                label.setup.addLabel: a#addPet Add another pet
             else
               p.pets
                 label.setup Pet
                 span.holdPet
                   input.pet(name='pets', autofocus=true, placeholder='Animal Type (leave blank if NA)')
                   input.petName(name='petName', placeholder='Name (leave blank if NA)', style='text-transform: capitalize')
-                  a.remove X
-                a#addPet(href='#') Add another pet
-
+                label.setup.addLabel: a#addPet Add another pet
           fieldset.step
             legend.account Account
             p.submit

@@ -140,9 +140,9 @@ class User {
     }
   }
 
-  // save(fn){
-  //   userCollection.save(this, ()=>fn());
-  // }
+  save(fn){
+    userCollection.save(this, ()=>fn());
+  }
 
   // generating a hash, passport
   generateHash(password) {

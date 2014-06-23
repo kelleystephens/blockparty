@@ -44,7 +44,7 @@
       var lat = n.coordinates[0];
       var lng = n.coordinates[1];
       var title = n.name;
-      var icon = {url:'/img/143.png', size: new google.maps.Size(25, 25), scaledSize: new google.maps.Size(25, 25)};
+      var icon = {url:'/img/blue-pin.png', size: new google.maps.Size(25, 25), scaledSize: new google.maps.Size(25, 25)};
       var info = n.address;
       var content = `<div style='background-image: url(${n.photo})' class='pic'></div><a href='/meet/${n._id}' class='name'>${n.name}</a><div class='addr'>${n.address}</div>`;
       addMarker(lat, lng, title, icon, info, content);
