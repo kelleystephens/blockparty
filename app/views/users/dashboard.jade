@@ -1,55 +1,74 @@
 extends ../shared/template
 
 block content
-  h1 Dashboard
-  h3= user.name
-  if(user.stars < 16)
-    h4 Social Status: Wallflower (#{user.stars} stars)
-  if(user.stars > 15)
-    h4 Social Status: Coming out of your shell (#{user.stars} stars)
-  if(user.stars > 30)
-    h4 Social Status: Neighbourly (#{user.stars} stars)
-  if(user.stars > 45)
-    h4 Social Status: Social Butterfly (#{user.stars} stars)
-  if(user.stars > 60)
-    h4 Social Status: Socialite (#{user.stars} stars)
-  if(user.stars > 100)
-    h4 Social Status: Life of the Party
-  a(href='/post') Post on the Msg Board!
-  if(posts)
-    each post in posts
-      h3(class=post.klass)= post.subject
-      h3= post.body
-      if(post.rsvp)
-        h5 Attendees:
-          each reply in post.rsvp
-            p #{reply.name}
-      if(post.type === 'event')
-        if(post.rsvp.length)
-          each reply in post.rsvp
-            if(reply.id.toString() !== user._id.toString())
-              h5 RSVP:
-              form(action='/rsvp/#{post._id}', method='post')
-                button(name='attend', value='yes') I'll Be There!
-                button(name='attend', value='no') Can't Make It
-        else
-          h5 RSVP:
-          form(action='/rsvp/#{post._id}', method='post')
-            button(name='attend', value='yes') I'll Be There!
-            button(name='attend', value='no') Can't Make It
-      if(post.comments)
-        each comment in post.comments
-          h6 #{comment.name}'s says:
-          h6= comment.content
-      form(action='/comment/#{post._id}', method='post')
-        input(name='content', type=text, placeholder='Add a comment')
-        button Add
-  if(messages)
-    each message in messages
-      a(class=message.klass, href='/show/#{message._id}')= message.subject
+  body(style='background-color: grey')
+    .container-fluid.dashboard.top
+      .col-md-4.col-sm-4.col-xs-4.star= user.stars
+      .col-md-4.col-sm-4.col-xs-4
+        .dashpic(style='background-image:url(#{user.photo})')
+          a(href='/meet/#{user._id}') View Profile
+      .col-md-4.col-sm-4.col-xs-4
+        .status1 Social Status:
+        if(user.stars < 16)
+          .status2 Wallflower
+        if(user.stars > 15)
+          .status2 Coming out of your shell
+        if(user.stars > 30)
+          .status2 Neighbourly
+        if(user.stars > 45)
+          .status2 Social Butterfly
+        if(user.stars > 60)
+          .status2 Socialite
+        if(user.stars > 100)
+          .status2 Life of the Party
 
-  a(href='/neighbors') Meet Your Street!
-  a(href='/neighborhood') Neighborhood Info
-  a(href='/profile') Edit Profile
-  a(href='/location') Change Address
-  a(href='/meet/#{user._id}') View Profile
+    .container-fluid.dashboard.bottom
+      .col-md-4.col-sm-4.col-xs-12
+        .board
+          .head Message Board
+          .post: a(href='/post') Write A Post
+          .allposts
+            if(posts)
+              each post in posts
+                .onepost
+                  h3(class=post.klass)= post.subject
+                  h3= post.body
+                  if(post.rsvp)
+                    h5 Attendees:
+                      each reply in post.rsvp
+                        p #{reply.name}
+                  if(post.type === 'event')
+                    if(post.rsvp.length)
+                      each reply in post.rsvp
+                        if(reply.id.toString() !== user._id.toString())
+                          h5 RSVP:
+                          form(action='/rsvp/#{post._id}', method='post')
+                            button(name='attend', value='yes') I'll Be There!
+                            button(name='attend', value='no') Can't Make It
+                    else
+                      h5 RSVP:
+                      form(action='/rsvp/#{post._id}', method='post')
+                        button(name='attend', value='yes') I'll Be There!
+                        button(name='attend', value='no') Can't Make It
+                  if(post.comments)
+                    each comment in post.comments
+                      h6 #{comment.name}'s says:
+                      h6= comment.content
+                  form(action='/comment/#{post._id}', method='post')
+                    input(name='content', type=text, placeholder='Add a comment')
+                    button Add
+      .col-md-4.col-sm-4.col-xs-12
+        .street
+          nav.linkeffect
+            a(href='/neighbors', data-hover='neighbors') Meet Your Street!
+        .info
+          button.specialbtn
+            a(href='/neighborhood') Neighborhood Info
+      .col-md-4.col-sm-4.col-xs-12.relative
+        img.blur(src='../img/flowers.png')
+        .msgs
+          h1 Personal Messages
+          if(messages)
+            each message in messages
+              .message
+                a(class=message.klass, href='/show/#{message._id}') #{moment(message.sentDate).format('MM/DD/YYYY')} : #{message.subject}

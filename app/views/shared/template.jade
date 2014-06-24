@@ -23,9 +23,13 @@ html
               li.li: a.navbar-brand BlockParty
             ul.nav.navbar-nav.navbar-right
               if(user.name)
-                ul.nav.navbar-nav.navbar-left
-                  li.li: a.navbar-text(href='/dashboard') Dashboard
-                li.li: a.navbar-text(href='#') Welcome, #{user.name}
+                li.dropdown: a.dropdown-toggle(href='#', data-toggle='dropdown') Welcome, #{user.name}
+                  b.caret
+                  ul.dropdown-menu
+                    li.li: a.navbar-text(href='/dashboard') Dashboard
+                    li.li: a.navbar-text(href='/profile') Edit Profile
+                    li.li: a.navbar-text(href='/location') Change Address
+
               li.li: a.navbar-text(href='/logout') Logout
           else
             ul.nav.navbar-nav.navbar-left
