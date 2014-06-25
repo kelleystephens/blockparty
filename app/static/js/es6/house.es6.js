@@ -6,17 +6,16 @@
 
   $(document).ready(init);
 
-  var winHeight = $(window).height();
   var map;
 
   function init(){
     initMap();
     $('#house').css({
-      'height': winHeight,
+      'height': '400px',
     });
     $(window).resize(function(){
       $('#house').css({
-        'height': winHeight,
+        'height': '400px',
       });
     });
   }

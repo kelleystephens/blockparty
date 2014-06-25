@@ -1,12 +1,22 @@
 extends ../shared/template
 
 block content
-  h1 Neighborhood Info
-  #events
-  #police
-  #fire
-  #bldg
-  #codes
+  body(style='background-color: #afaa9c')
+    .infoholder
+      #events
+        .infohead Nashville Events
+    .infoholder
+      #closest
+        #police
+          .infohead Closest Police Precint
+        #fire
+          .infohead Closest Fire Station
+    .infoholder
+      #bldg
+        .infohead Neighborhood Building Permits
+    .infoholder
+      #codes
+        .infohead Neighborhood Code Violations
 
 block scripts
   script.

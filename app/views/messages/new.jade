@@ -1,14 +1,53 @@
 extends ../shared/template
 
 block content
-  h5 Write a Message
-  #fromUser From: #{fromUser.name}
-  #toUser To: #{toUser.name}
-  #date= moment().format('MM/DD/YYYY')
+  body(style='background-color: grey')
+    .container-fluid.dashboard.top
+      .col-md-4.col-sm-4.col-xs-4.star= toUser.stars
+      .col-md-4.col-sm-4.col-xs-4
+        .dashpic(style='background-image:url(#{toUser.photo})')
+          a(href='/meet/#{toUser._id}') View Profile
+      .col-md-4.col-sm-4.col-xs-4
+        .status1 Social Status:
+        if(toUser.stars < 16)
+          .status2 Wallflower
+        if(toUser.stars > 15)
+          .status2 Coming out of your shell
+        if(toUser.stars > 30)
+          .status2 Neighbourly
+        if(toUser.stars > 45)
+          .status2 Social Butterfly
+        if(toUser.stars > 60)
+          .status2 Socialite
+        if(toUser.stars > 100)
+          .status2 Life of the Party
+    .container-fluid.readmsg
+      .topholder
+        .fromUser From: #{fromUser.name}
+        .toUser To: #{toUser.name}
+        .date Date: #{moment().format('MM/DD/YYYY')}
+      .bottomholder.new
+        form(action='/message/#{toUser._id}', method='post')
+          input(type='hidden', value='#{fromUser._id}', name='fromUserId')
+          input(type='hidden', value='#{toUser._id}', name='toUserId')
+          input#subject.form-control(type='text', placeholder='Subject', name='subject')
+          textarea#body.form-control(placeholder='Type Your Message Here', name='body')
+          button#sendmessage Send
 
-  form(action='/message/#{toUser._id}', method='post')
-    input(type='hidden', value='#{fromUser._id}', name='fromUserId')
-    input(type='hidden', value='#{toUser._id}', name='toUserId')
-    input#subject.form-control(type='text', placeholder='Subject', name='subject')
-    textarea#body.form-control(rows='7', placeholder='Type Your Message Here', name='body')
-    button.btn.btn-primary#sendmessage Send Message
+
+  //-       .msgbody= message.body
+  //-       .msgreply
+  //-         a(href='/reply/#{fromUser._id}') Reply
+  //-
+  //-
+  //- h5 Write a Message
+  //- #fromUser From: #{fromUser.name}
+  //- #toUser To: #{toUser.name}
+  //- #date= moment().format('MM/DD/YYYY')
+  //-
+  //- form(action='/message/#{toUser._id}', method='post')
+  //-   input(type='hidden', value='#{fromUser._id}', name='fromUserId')
+  //-   input(type='hidden', value='#{toUser._id}', name='toUserId')
+  //-   input#subject.form-control(type='text', placeholder='Subject', name='subject')
+  //-   textarea#body.form-control(rows='7', placeholder='Type Your Message Here', name='body')
+  //-   button.btn.btn-primary#sendmessage Send Message

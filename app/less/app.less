@@ -4,7 +4,7 @@ body{
 }
 
 .navbar {
-  max-height: 60px;
+  height: 60px;
   background: #656d80;
   background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #333A44),color-stop(0.6, #535e68));
   background: -moz-linear-gradient(center bottom,#656d80 0%, #8690a9 60%);
@@ -12,6 +12,10 @@ body{
 
 .navbar-text{
   margin-top: 0;
+}
+
+.dropdown{
+  margin-right: 15px;
 }
 
 .navbar-inverse .navbar-nav>.open>a,
@@ -48,24 +52,8 @@ body{
   padding-left: 5px;
 }
 
-.urgent{
-  color: red;
-}
-
-.event{
-  color: green;
-}
-
-.update{
-  color: purple;
-}
-
-.general{
-  color: blue;
-}
-
 .unread{
-  background-color: yellow;
+  background-color: #d4d68e;
 }
 
 .housepics{
@@ -77,11 +65,11 @@ body{
 
 .content{
   font-size: 1.875rem;
-  color: #262626;
   background-size: 49% auto;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  color: #ede6e6;
+  color: #afaa9c;
+  font-weight: 300px;
 }
 
 .right {
@@ -90,9 +78,10 @@ body{
 }
 
 .block1 {
-  background-color: #37C5BD;
-  background-image: url("../img/home1.png");
-  height: 350px;
+  background-color: #AFAA9C;
+  background-image: url("../img/nh1.png");
+  height: 380px;
+  margin-top: 15px;
 }
 
 .left {
@@ -100,7 +89,7 @@ body{
   background-position: 100% 50%;
 }
 .block2 {
-  background-color: #EE6F5E;
+  background-color: #6A5C6C;
   background-image: url("../img/streets.png");
 }
 
@@ -108,16 +97,18 @@ body{
   font-size: 1.875rem;
   padding: 1.618em 0;
   text-align: center;
+  color: #BBB8AF;
 }
 
 .block3 {
-  background-color: #019AE0;
-  background-image: url("../img/homes.png");
+  background-color: #869D9A;
+  background-image: url("../img/nh3.png");
 }
 .block4 {
-  background-color: #FF9D48;
+  background-color: #B3A4A4;
   background-image: url("../img/skyline.jpg");
-  height: 250px;
+  height: 300px;
+  background-position: 100% 75% !important;
 }
 
   //Login and Register page styling
@@ -132,7 +123,7 @@ body{
   margin: 60px auto 30px;
   position: relative;
   border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1), 0 3px 2px rgba(0,0,0,0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.47), 0 3px 2px rgba(0, 0, 0, 0.17);
   text-align: center;
 }
 
@@ -280,13 +271,26 @@ body{
 
 #map{
   width: 70%;
-  margin-right: 10px;
+  margin-right: 20px;
   box-shadow: -4px -1px 5px rgba(0, 0, 0, 0.19), 0 -3px 7px rgba(0, 0, 0, 0.19);
   float: right;
   border: 1px solid #d3d3d3;
 }
 
+.meet{
+  margin: 5px auto 20px;
+  width: 75%;
+  color: #393a47;
+  padding: 0.4em 0 0.3em;
+  text-align: center;
+  font-weight: 300;
+  font-size: 3.5em;
+  border-bottom: 1px dotted #393a47;
+}
+
 .neighbors{
+  height: 500px;
+  overflow: auto;
   width: 28%;
   float: left;
   margin: auto;
@@ -295,9 +299,11 @@ body{
 }
 
 .neighbors > h4{
-  border-bottom: 2px solid black;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
+  color: #393a47;
+  padding: 0.4em 0 0.3em;
+  font-weight: 300;
+  font-size: 1.5em;
+  border-bottom: 1px dotted #393a47;
   display: block;
   width: 60%;
   margin: auto;
@@ -343,36 +349,59 @@ body{
 }
 
 .hexagon:hover, .hex-in1:hover, .hex-in2:hover{
-  // background-color: black;
-  // background-image: none;
   border: 3px solid transparent;
 }
 
 //User Show Page Styling
 
 #house{
-  width: 35%;
-  height: 400px !important;
-  margin: 20px;
+  margin: 10px;
   box-shadow: -4px -1px 5px rgba(0, 0, 0, 0.19), 0 -3px 7px rgba(0, 0, 0, 0.19);
+}
+
+#family, #pets, #about, #profmsg{
+  height: 185px;
+  margin: 15px 0px 0px 0px;
+  overflow: auto;
+  text-align: center;
+  -moz-box-shadow: 0 0 5px #000000;
+  -webkit-box-shadow: 0 0 5px #000000;
+  box-shadow: 0 0 5px #000000;
+  h5, .showabout{
+    font-size: 18px;
+    font-weight: 300;
+    width: 40%;
+    color: #393a47;
+  }
+  p{
+    font-size: 15px;
+    font-weight: 300;
+    color: #393a47;
+  }
+}
+
+.showabout{
+  width: 85% !important;
+  margin: auto;
+  text-align: justify;
 }
 
 //Dashboard Styling
 
 .dashboard.top{
-  background-color: black;
+  background-color: #705454;
   height: 225px;
   padding: 15px
 }
 
 .dashboard.top > .col-md-4{
   height: 100%;
-  background-color: black;
+  background-color: #705454;
 }
 
 .star, .dashpic, .status1, .status2{
-  color: #ffffff;
-  background-color: black;
+  color: #afaa9c;
+  background-color: #705454;
   background-position: center;
   margin: auto;
   text-align: center;
@@ -427,7 +456,7 @@ body{
 }
 
 .board, .street{
-  border: 1px solid black;
+  border: 1px solid #323844;
   text-align: center;
 }
 
@@ -458,7 +487,7 @@ body{
   position: relative;
 }
 
-.msgs{
+.board, .msgs{
   background: none;
   position: absolute;
   top: 0px;
@@ -565,7 +594,7 @@ body{
 .specialbtn{
   width: 100%;
   height: 100%;
-  border: 3px solid #fff;
+  border: 3px solid #808080;
   z-index:4;
 	overflow: hidden;
 	font-family: inherit;
@@ -576,14 +605,13 @@ body{
 	display: inline-block;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	// font-weight: 700;
 	outline: none;
 	position: relative;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
 	transition: all 0.3s;
   a{
-    color: #fff;
+    color: #808080;
     width: 100%;
     height: 100%;
     display: inline-block;
@@ -593,7 +621,7 @@ body{
 }
 
 .specialbtn:after {
-  color: #0e83cd;
+  color: #323844;
   content: '';
 	position: absolute;
 	z-index: -1;
@@ -604,7 +632,7 @@ body{
 	height: 0;
 	top: 50%;
 	left: 50%;
-	background: #fff;
+	background: #808080;
 	opacity: 0;
 	-webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg);
 	-moz-transform: translateX(-50%) translateY(-50%) rotate(45deg);
@@ -654,8 +682,187 @@ body{
   }
 }
 
-.msgs h1{
+.msgs h1, .board h1{
   width: 80%;
   border-bottom: 2px dotted #3a4051;
   margin: 10px auto;
+  color: #3a4051;
+}
+
+.board > a{
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.21);
+
+}
+
+.type{
+  color: #323844;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform-origin: left top 0;
+  transform: rotate(-90deg);
+  float: left;
+  font-size: 20px;
+  position: relative;
+  top: 35px;
+}
+
+//Message styling
+
+.readmsg{
+  margin: 20px auto;
+  width: 75%;
+  height: 380px;
+  overflow: auto;
+  background-image: url('../img/flowers.png');
+  background-size: cover;
+}
+
+.topholder, .bottomholder{
+  background: rgba(255, 255, 255, 0.25);
+  margin: 10px 20px;
+  position: relative;
+  color: #323844;
+}
+
+.bottomholder.new{
+  padding: 10px;
+}
+
+.fromUser, .toUser, .date, .subject{
+  padding: 0.4em .8em;
+  font-weight: 300;
+  font-size: 1.8em;
+}
+
+.msgbody{
+  padding: 0.4em .8em;
+  font-weight: 300;
+  font-size: 1.2em;
+}
+
+.msgreply{
+  position: relative;
+  height: 39px;
+  padding-bottom: 7px;
+}
+
+.msgreply > a{
+  position: absolute;
+  bottom: 7px;
+  right: 7px;
+  padding: 6px;
+  width: 75px;
+  border: none;
+  background: #393a47;
+  color: #f9f6e5;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+  text-align: center;
+  font-size: 1.1em;
+  -moz-box-shadow: 0 0 5px #000000;
+  -webkit-box-shadow: 0 0 5px #000000;
+  box-shadow: 0 0 5px #000000;
+  outline: none;
+}
+
+#sendmessage{
+  position: absolute;
+  bottom: 0;
+  right: 7px;
+  padding: 6px;
+  width: 75px;
+  border: none;
+  background: #393a47;
+  color: #f9f6e5;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+  text-align: center;
+  font-size: 1.1em;
+  -moz-box-shadow: 0 0 5px #000000;
+  -webkit-box-shadow: 0 0 5px #000000;
+  box-shadow: 0 0 5px #000000;
+  outline: none;
+}
+
+.bottomholder.new > form{
+  position: relative;
+}
+
+.bottomholder > form > #subject,
+.bottomholder > form > #body{
+  margin: 10px;
+  padding: 10px;
+  width: 60%;
+  border: 2px solid #afaa9c;
+  background: transparent;
+  color: #393a47;
+  font-weight: 300;
+  font-size: 1.5em;
+  -moz-box-shadow: 0 0 5px #000000;
+  -webkit-box-shadow: 0 0 5px #000000;
+  box-shadow: 0 0 5px #000000;
+  margin-left: 10px;
+}
+
+.bottomholder > form > #subject:focus,
+.bottomholder > form > #body:focus{
+  outline: none;
+}
+
+//Neighborhood Info Styling
+
+.infoholder{
+  height: 288px;
+  width: 40%;
+  display: inline-block;
+  margin: 20px 5% 0px 5%;
+  overflow: auto;
+  text-align: center;
+  -moz-box-shadow: 0 0 5px #000000;
+  -webkit-box-shadow: 0 0 5px #000000;
+  box-shadow: 0 0 5px #000000;
+  color: #323844;
+}
+
+#events, #closest, #bldg, #codes{
+  width: 85%;
+  margin: auto
+}
+
+.infohead{
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 0.4em .8em;
+  font-weight: 300;
+  font-size: 1.8em;
+  color: #393a47;
+  border-bottom: 1px dotted #393a47;
+  background-color: rgba(255, 255, 255, 0.28);
+}
+
+.infohead > *{
+  text-align: justify;
+}
+
+#police a{
+  color: #393a47;
+  text-decoration: none;
+  a:hover{
+    text-decoration: none;
+  }
+}
+
+.eachinfo{
+  width: 100%;
+  background: rgba(61, 62, 77, 0.12);
+  padding: 10px 0px 5px;
+  margin: 10px auto;
+  -moz-box-shadow: inset 0 0 10px rgba(66, 66, 66, 0.72);
+  -webkit-box-shadow: inset 0 0 10px rgba(66, 66, 66, 0.72);
+  box-shadow: inset 0 0 10px rgba(66, 66, 66, 0.72);
 }

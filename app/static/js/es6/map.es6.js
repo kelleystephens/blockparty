@@ -6,7 +6,6 @@
 
   $(document).ready(init);
 
-  var winHeight = $(window).height();
   var map;
   var weatherLayer;
   var markers = [];
@@ -14,11 +13,11 @@
   function init(){
     initMap();
     $('#map').css({
-      'height': winHeight,
+      'height': '500px',
     });
     $(window).resize(function(){
       $('#map').css({
-        'height': winHeight,
+        'height': '500px',
       });
     });
     assignMarkers();

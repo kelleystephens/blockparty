@@ -1,9 +1,61 @@
 extends ../shared/template
 
 block content
-  h1 Meet #{user2.name}
-  a(href='/message/#{user2._id}') Send #{user2.name} a message
-  #house
+  body(style='background-color: #afaa9c')
+    .container-fluid.dashboard.top
+      .col-md-4.col-sm-4.col-xs-4.star= user2.stars
+      .col-md-4.col-sm-4.col-xs-4
+        .dashpic(style='background-image:url(#{user2.photo})')
+          a(href='/message/#{user2._id}') Send Message
+      .col-md-4.col-sm-4.col-xs-4
+        .status1 Social Status:
+        if(user2.stars < 16)
+          .status2 Wallflower
+        if(user2.stars > 15)
+          .status2 Coming out of your shell
+        if(user2.stars > 30)
+          .status2 Neighbourly
+        if(user2.stars > 45)
+          .status2 Social Butterfly
+        if(user2.stars > 60)
+          .status2 Socialite
+        if(user2.stars > 100)
+          .status2 Life of the Party
+    .container-fluid
+      .col-md-4.col-sm-4.col-xs-4
+        #family
+          .infohead Family
+          .showspouse
+            h5 Spouse:
+            if(user2.spouse.type === '')
+              p NA
+            else
+              p #{user2.spouse.type} : #{user2.spouse.name}
+          .showkids
+            h5 Children:
+            each kid in user2.kids
+              if(kid.type === '')
+                p NA
+              else
+                p #{kid.type} : #{kid.name}
+        #pets
+          .infohead Pets
+          .showpets
+            each pet in user2.pets
+              if(pet.type === '')
+                p NA
+              else
+                p #{pet.type} : #{pet.name}
+      .col-md-4.col-sm-4.col-xs-4
+        #house
+      .col-md-4.col-sm-4.col-xs-4
+        #about
+          .infohead About
+          .showabout= user2.about
+        #profmsg
+          nav.linkeffect
+            a(href='/message/#{user2._id}', data-hover='neighbors') Send A Message
+
 
 block scripts
   script.

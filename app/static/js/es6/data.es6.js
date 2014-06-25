@@ -24,7 +24,7 @@
         var contact = p.contact;
         var address = p.address;
         var purpose = p.purpose;
-        $('#bldg').append(`<p>Issue Date: ${dateIssued}</p><p>Contact: ${contact}</p><p>Address: ${address}</p><p>Purpose: ${purpose}</p>`);
+        $('#bldg').append(`<div class='eachinfo'><p><strong>Issue Date:</strong> ${dateIssued}</p><p><strong>Contact:</strong> ${contact}</p><p><strong>Address:</strong> ${address}</p><p><strong>Purpose:</strong> ${purpose}</p></div>`);
       });
     });
   }
@@ -38,7 +38,7 @@
         var dateReceived = moment(v.date_received).format('MM/DD/YYYY');
         var address = v.property_address;
         var problem = v.reported_problem;
-        $('#codes').append(`<p>Date Received: ${dateReceived}</p><p>Address: ${address}</p><p>Violation: ${problem}</p>`);
+        $('#codes').append(`<div class='eachinfo'><p><strong>Date Received:</strong> ${dateReceived}</p><p><strong>Address:</strong> ${address}</p><p><strong>Violation:</strong> ${problem}</p></div>`);
       });
     });
   }
@@ -64,7 +64,7 @@
         return Math.sqrt(Math.pow(p1.x-p2.x,2)+Math.pow(p1.y-p2.y,2));
       }
       var closest = _.find(stations, {'station_number': locations[0].num});
-      $('#fire').append(`<p>Address: ${closest.street_address}, ${closest.city}, ${closest.state} ${closest.zip_code}</p>`);
+      $('#fire').append(`<div class='eachinfo'><p><strong>Address:</strong> ${closest.street_address}, ${closest.city}, ${closest.state} ${closest.zip_code}</p></div>`);
     });
   }
 
@@ -89,10 +89,10 @@
         return Math.sqrt(Math.pow(p1.x-p2.x,2)+Math.pow(p1.y-p2.y,2));
       }
       var closest = _.find(stations, {'precinct_name': locations[0].name});
-      $('#police').append(`<p>Address: ${closest.street}, ${closest.city}, ${closest.state} ${closest.zip_code}</p>
-                            <p>Commander: ${closest.precinct_commander}</p>
-                            <p>Phone Number: ${closest.phone_number}</p>
-                            <div>Website: <a href='${closest.website.url}'>${closest.website.url}</a></div>`);
+      $('#police').append(`<div class='eachinfo'><p><strong>Address:</strong> ${closest.street}, ${closest.city}, ${closest.state} ${closest.zip_code}</p>
+                            <p><strong>Commander:</strong> ${closest.precinct_commander}</p>
+                            <p><strong>Phone Number:</strong> ${closest.phone_number}</p>
+                            <div><strong>Website:</strong> <a href='${closest.website.url}'>${closest.website.url}</a></div></div>`);
     });
   }
 
@@ -103,7 +103,7 @@
         var date = moment(e.date).format('MM/DD/YYYY');
         var event = e.event;
         var location = e.location;
-        $('#events').append(`<p>Event: ${event}</p><p>Date: ${date}</p><p>Location: ${location}</p>`);
+        $('#events').append(`<div class='eachinfo'><p><strong>Event:</strong> ${event}</p><p><strong>Date:</strong> ${date}</p><p><strong>Location:</strong> ${location}</p></div>`);
       });
     });
   }

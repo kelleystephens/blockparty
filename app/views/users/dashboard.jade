@@ -1,7 +1,7 @@
 extends ../shared/template
 
 block content
-  body(style='background-color: grey')
+  body(style='background-color: #808080')
     .container-fluid.dashboard.top
       .col-md-4.col-sm-4.col-xs-4.star= user.stars
       .col-md-4.col-sm-4.col-xs-4
@@ -24,39 +24,72 @@ block content
 
     .container-fluid.dashboard.bottom
       .col-md-4.col-sm-4.col-xs-12
+        img.blur(src='../img/flowers.png')
         .board
-          .head Message Board
-          .post: a(href='/post') Write A Post
+          h1 Message Board
+
+          .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed.specialpost
+            button.writepost(type='button') Post
+            .morph-content
+              div
+                .content-style-form.content-style-form-1.postform
+                  span.icon.icon-close Close
+                  h2 New Post
+                  h5= moment().format('MM/DD/YYYY')
+                  form(action='/post', method='post')
+                    input(name='subject', type='text', autofocus=true, placeholder='Subject Here', required)
+                    textarea(name='body', type='text', placeholder='Content Here', required)
+                    label Select Post Type:
+                    select.styleselect(name='type')
+                      option(value='urgent') Urgent
+                      option(value='event') Event
+                      option(value='update') Update
+                      option(value='general') General
+                    button#post Post to Message Board
           .allposts
             if(posts)
               each post in posts
                 .onepost
-                  h3(class=post.klass)= post.subject
-                  h3= post.body
-                  if(post.rsvp)
-                    h5 Attendees:
-                      each reply in post.rsvp
-                        p #{reply.name}
-                  if(post.type === 'event')
-                    if(post.rsvp.length)
-                      each reply in post.rsvp
-                        if(reply.id.toString() !== user._id.toString())
-                          h5 RSVP:
-                          form(action='/rsvp/#{post._id}', method='post')
-                            button(name='attend', value='yes') I'll Be There!
-                            button(name='attend', value='no') Can't Make It
-                    else
-                      h5 RSVP:
-                      form(action='/rsvp/#{post._id}', method='post')
-                        button(name='attend', value='yes') I'll Be There!
-                        button(name='attend', value='no') Can't Make It
-                  if(post.comments)
-                    each comment in post.comments
-                      h6 #{comment.name}'s says:
-                      h6= comment.content
-                  form(action='/comment/#{post._id}', method='post')
-                    input(name='content', type=text, placeholder='Add a comment')
-                    button Add
+                  if(post.klass === 'urgent')
+                    .type Urgent
+                  if(post.klass === 'event')
+                    .type Event
+                  if(post.klass === 'update')
+                    .type Update
+                  if(post.klass === 'general')
+                    .type General
+                  .morph-button.morph-button-modal.morph-button-modal-2.morph-button-fixed
+                    button(type='button')= post.subject
+                    .morph-content
+                      div
+                        .content-style-form.content-style-form-1
+                          span.icon.icon-close Close
+                          h2= post.subject
+                          h3= post.body
+                          if(post.type === 'event')
+                            h5 Attendees:
+                              div
+                                each reply in post.rsvp
+                                  p #{reply.name}
+                            if(post.rsvp.length)
+                              //- each reply in post.rsvp
+                                if(each reply.id.toString() in post.rsvp !== user._id.toString())
+                                  h5 RSVP:
+                                  form(action='/rsvp/#{post._id}', method='post')
+                                    button(name='attend', value='yes') Attending
+                                    button(name='attend', value='no') !Attending
+                            else
+                              h5 RSVP:
+                              form(action='/rsvp/#{post._id}', method='post')
+                                button(name='attend', value='yes') Attending
+                                button(name='attend', value='no') !Attending
+                          if(post.comments)
+                            each comment in post.comments
+                              h6 #{comment.name}'s says:
+                              h6.content= comment.content
+                          form(action='/comment/#{post._id}', method='post')
+                            input(name='content', type='text', placeholder='Add a comment')
+                            button.addcomment Add
       .col-md-4.col-sm-4.col-xs-12
         .street
           nav.linkeffect
@@ -71,4 +104,65 @@ block content
           if(messages)
             each message in messages
               .message
-                a(class=message.klass, href='/show/#{message._id}') #{moment(message.sentDate).format('MM/DD/YYYY')} : #{message.subject}
+                a(href='/show/#{message._id}', class=message.klass) #{moment(message.sentDate).format('MM/DD/YYYY')} : #{message.subject}
+
+block scripts
+  script(src='/js/vendor/classie.js')
+  script(src='/js/vendor/modernizr.custom.js')
+  script(src='/js/vendor/uiMorphingButton_fixed.js')
+  script.
+    var docElem = window.document.documentElement, didScroll, scrollPosition;
+    // trick to prevent scrolling when opening/closing button
+    function noScrollFn() {
+      window.scrollTo( scrollPosition ? scrollPosition.x : 0, scrollPosition ? scrollPosition.y : 0 );
+    }
+
+    function noScroll() {
+      window.removeEventListener( 'scroll', scrollHandler );
+      window.addEventListener( 'scroll', noScrollFn );
+    }
+
+    function scrollFn() {
+      window.addEventListener( 'scroll', scrollHandler );
+    }
+
+    function canScroll() {
+      window.removeEventListener( 'scroll', noScrollFn );
+      scrollFn();
+    }
+
+    function scrollHandler() {
+      if( !didScroll ) {
+        didScroll = true;
+        setTimeout( function() { scrollPage(); }, 60 );
+      }
+    };
+
+    function scrollPage() {
+      scrollPosition = { x : window.pageXOffset || docElem.scrollLeft, y : window.pageYOffset || docElem.scrollTop };
+      didScroll = false;
+    };
+
+    scrollFn();
+
+    [].slice.call(document.querySelectorAll('.morph-button')).forEach( function(bttn){
+      new UIMorphingButton( bttn, {
+        closeEl : '.icon-close',
+        onBeforeOpen : function() {
+          // don't allow to scroll
+          noScroll();
+        },
+        onAfterOpen : function() {
+          // can scroll again
+          canScroll();
+          },
+        onBeforeClose : function() {
+          // don't allow to scroll
+          noScroll();
+        },
+        onAfterClose : function() {
+          // can scroll again
+          canScroll();
+        }
+      });
+    });
