@@ -11,7 +11,7 @@ exports.new = (req, res)=>{
   console.log(req.user);
   var fromUser = req.user;
   User.findById(req.params.toId, toUser=>{
-    res.render('messages/new', {user: req.user, fromUser: fromUser, toUser: toUser, title: 'Write a Post'});
+    res.render('messages/new', {user: req.user, fromUser: fromUser, toUser: toUser, title: 'Write a Message'});
   });
 };
 
