@@ -86,7 +86,7 @@ block content
                           if(post.comments)
                             each comment in post.comments
                               h6 #{comment.name}'s says:
-                              h6.content= comment.content
+                              h6.comment= comment.content
                           form(action='/comment/#{post._id}', method='post')
                             input(name='content', type='text', placeholder='Add a comment')
                             button.addcomment Add
