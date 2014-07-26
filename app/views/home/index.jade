@@ -1,33 +1,48 @@
 extends ../shared/template
 
 block content
+  head
+    link(href='/css/home.css' rel='stylesheet')
   body(style='background-color:#323844')
-    .container.content.right.block1
-      h1.blockparty BlockParty
-      p.network Networking for Neighbors!
-    section.separator
-      h3 About
-    .container.content.left.block2
-      h1 Tell us More!
-      p Sometimes it can be a bit awkward meeting your neighbors for the first time.
-      | Let BlockParty help by introducing you virtually. Not only can you connect to people near you,
-      | you can share neighborhood updates, keep everyone in the know about potential neighborhood threats,
-      | and even plan and RSVP for a fun cookout or BLOCKPARTY!
-      p
-    section.separator
-      h3 FAQs
-    .container.content.right.block3
-      h1 Question and Answer Time!
-      p Q: What defines my neighborhood?
-      p A: When you sign up and give us your address, we find everyone who falls within a quarter-mile radius.
-      p Q: What are the stars and how do I get them?
-      p A: You gain stars every time you log in, write on the message board, or comment on a neighbors post.
-        | The number of stars you have, determine you social level in the app. Are you a wallflower or a social
-        | butterfly? Only the stars will tell!
-    section.separator
-      h3 Brought to You By:
-    .container.content.left.block4
-      h1 Kelley Stephens
-      p Nashvillian, wife, creator of apps
-    section.separator
-      h3 Check It Out!
+
+    //- .container
+    .cbp-so-scroller#cbp-so-scroller
+      section.cbp-so-section
+        article.cbp-so-side.cbp-so-side-left
+          h1.blockparty BlockParty
+          p.network Networking for Neighbors!
+        figure.cbp-so-side.cbp-so-side-right
+          img(src='../img/nh1.png')
+      section.cbp-so-section
+        figure.cbp-so-side.cbp-so-side-left
+          img(src='../img/streets.png')
+        article.cbp-so-side.cbp-so-side-right
+          h1 Tell us More!
+          p Sometimes it can be a bit awkward meeting your neighbors for the first time.
+            | Let BlockParty help by introducing you virtually. Not only can you connect to people near you,
+            | you can share neighborhood updates, keep everyone in the know about potential neighborhood threats,
+            | and even plan and RSVP for a fun cookout or BLOCKPARTY!
+      section.cbp-so-section
+        article.cbp-so-side.cbp-so-side-left
+          h1 Question and Answer Time!
+          p Q: What defines my neighborhood?
+          p A: When you sign up and give us your address, we find everyone who falls within a quarter-mile radius.
+          p Q: What are the stars and how do I get them?
+          p A: You gain stars every time you log in, write on the message board, or comment on a neighbors post.
+            | The number of stars you have, determine you social level in the app. Are you a wallflower or a social
+            | butterfly? Only the stars will tell!
+        figure.cbp-so-side.cbp-so-side-right
+          img(src='../img/nh3.png')
+      section.cbp-so-section
+        figure.cbp-so-side.cbp-so-side-left
+          img(src='../img/skyline.jpg')
+        article.cbp-so-side.cbp-so-side-right
+          h1 Brought To You By: Kelley Stephens
+          p Nashvillian, wife, creator of apps
+
+block scripts
+  script(src='/js/vendor/modernizr.custom.js')
+  script(src='/js/vendor/classie.js')
+  script(src='/js/vendor/cbpScroller.js')
+  script.
+    new cbpScroller( document.getElementById( 'cbp-so-scroller' ) );
