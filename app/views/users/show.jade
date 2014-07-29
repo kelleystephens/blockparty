@@ -3,26 +3,26 @@ extends ../shared/template
 block content
   body(style='background-color: #afaa9c')
     .container-fluid.dashboard.top
-      .col-md-4.col-sm-4.col-xs-4.star= user2.stars
-      .col-md-4.col-sm-4.col-xs-4
+      .col-md-4.col-sm-12.col-xs-12.star= user2.stars
+      .col-md-4.col-sm-6.col-xs-12
         .dashpic(style='background-image:url(#{user2.photo})')
           a(href='/message/#{user2._id}') Send Message
-      .col-md-4.col-sm-4.col-xs-4
+      .col-md-4.col-sm-6.col-xs-12
         .status1 Social Status:
-        if(user2.stars < 16)
+        if(user.stars < 16)
           .status2 Wallflower
-        if(user2.stars > 15)
+        else if(user.stars > 15 && user.stars < 31)
           .status2 Coming out of your shell
-        if(user2.stars > 30)
+        else if(user.stars > 30 && user.stars < 46)
           .status2 Neighbourly
-        if(user2.stars > 45)
+        else if(user.stars > 45 && user.stars < 61)
           .status2 Social Butterfly
-        if(user2.stars > 60)
+        else if(user.stars > 60 && user.stars < 101)
           .status2 Socialite
-        if(user2.stars > 100)
+        else
           .status2 Life of the Party
     .container-fluid
-      .col-md-4.col-sm-4.col-xs-4
+      .col-md-4.col-sm-6.col-xs-10
         #family
           .infohead Family
           .showspouse
@@ -46,9 +46,9 @@ block content
                 p NA
               else
                 p #{pet.type} : #{pet.name}
-      .col-md-4.col-sm-4.col-xs-4
+      .col-md-4.col-sm-6.col-xs-10
         #house
-      .col-md-4.col-sm-4.col-xs-4
+      .col-md-4.col-sm-6.col-xs-10
         #about
           .infohead About
           .showabout= user2.about

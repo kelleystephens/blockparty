@@ -66,7 +66,7 @@ body{
 // Home Page Styling
 
 .blockparty{
-  color: #5E5E5E;
+  color: #949494;
   font-family: 'Cabin Sketch', cursive;
   font-size: 6em;
   padding-top: 15px;
@@ -74,13 +74,13 @@ body{
 }
 
 .network{
-  color: #5E5E5E;
+  color: #949494;
   text-align: center;
   margin-top: 25px;
 }
 
 .cbp-so-side{
-  color: #5E5E5E;
+  color: #949494;
   img{
     border-radius: 10%;
   }
@@ -208,7 +208,6 @@ body{
   font-family: 'Montserrat', Arial, sans-serif;
   font-size: 20px;
   text-shadow: 0 1px 0 rgba(255,255,255,0.4);
-  transform: rotate(-90deg);
   transition: all 0.2s linear;
 }
 
@@ -285,6 +284,13 @@ body{
   margin: auto;
   text-align: center;
   padding-bottom: 15px;
+}
+
+.none{
+  color: #D6D6D6;
+  font-size: 2em;
+  font-weight: 300;
+  margin-top: 13%;
 }
 
 .neighbors > h4{
@@ -379,7 +385,7 @@ body{
 
 .dashboard.top{
   background-color: #705454;
-  height: 225px;
+  height: auto;
   padding: 15px
 }
 
@@ -450,13 +456,29 @@ body{
 }
 
 .board, .msgs{
+  position: relative;
+  // z-index: 1;
   height: 380px;
   margin-top: 25px;
   overflow: auto;
   text-align: center;
+  width: 100%;
   -moz-box-shadow: 0 0 5px #000000;
   -webkit-box-shadow: 0 0 5px #000000;
   box-shadow: 0 0 5px #000000;
+}
+
+.board::after, .msgs::after{
+  background-image: url('../img/flowers.png');
+  z-index: -1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  -webkit-filter: blur(2px);
+  filter: blur(2px);
 }
 
 .street, .info{
@@ -472,29 +494,17 @@ body{
   margin-top: 10px;
 }
 
-.relative{
-  position: relative;
-}
-
-.board, .msgs{
-  background: none;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-}
-
-.blur{
-  margin-top: 25px;
-  z-index: -1;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  height: 380px;
-  width: 100%;
-  -webkit-filter: blur(3px);
-  filter: blur(3px);
-}
+// .blur{
+//   margin-top: 25px;
+//   z-index: -1;
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   height: 380px;
+//   width: 100%;
+//   -webkit-filter: blur(3px);
+//   filter: blur(3px);
+// }
 
 //button effect
 

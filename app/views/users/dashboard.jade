@@ -3,28 +3,28 @@ extends ../shared/template
 block content
   body(style='background-color: #808080')
     .container-fluid.dashboard.top
-      .col-md-4.col-sm-4.col-xs-4.star= user.stars
-      .col-md-4.col-sm-4.col-xs-4
+      .col-md-4.col-sm-12.col-xs-12.star= user.stars
+      .col-md-4.col-sm-6.col-xs-12
         .dashpic(style='background-image:url(#{user.photo})')
           a(href='/meet/#{user._id}') View Profile
-      .col-md-4.col-sm-4.col-xs-4
+      .col-md-4.col-sm-6.col-xs-12
         .status1 Social Status:
         if(user.stars < 16)
           .status2 Wallflower
-        if(user.stars > 15)
+        else if(user.stars > 15 && user.stars < 31)
           .status2 Coming out of your shell
-        if(user.stars > 30)
+        else if(user.stars > 30 && user.stars < 46)
           .status2 Neighbourly
-        if(user.stars > 45)
+        else if(user.stars > 45 && user.stars < 61)
           .status2 Social Butterfly
-        if(user.stars > 60)
+        else if(user.stars > 60 && user.stars < 101)
           .status2 Socialite
-        if(user.stars > 100)
+        else
           .status2 Life of the Party
 
     .container-fluid.dashboard.bottom
-      .col-md-4.col-sm-4.col-xs-12
-        img.blur(src='../img/flowers.png')
+      .col-md-4.col-sm-6.col-xs-12
+        //- img.blur(src='../img/flowers.png')
         .board
           h1 Message Board
 
@@ -90,15 +90,15 @@ block content
                           form(action='/comment/#{post._id}', method='post')
                             input(name='content', type='text', placeholder='Add a comment')
                             button.addcomment Add
-      .col-md-4.col-sm-4.col-xs-12
+      .col-md-4.col-sm-6.col-xs-12
         .street
           nav.linkeffect
             a(href='/neighbors', data-hover='neighbors') Meet Your Street!
         .info
           button.specialbtn
             a(href='/neighborhood') Neighborhood Info
-      .col-md-4.col-sm-4.col-xs-12.relative
-        img.blur(src='../img/flowers.png')
+      .col-md-4.col-sm-6.col-xs-12
+        //- img.blur(src='../img/flowers.png')
         .msgs
           h1 Personal Messages
           if(messages)

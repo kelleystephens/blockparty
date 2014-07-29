@@ -49,7 +49,7 @@ class User {
     });
   }
 
-  //find all users within a half mile
+  //find all users within a quarter mile
   static findByLocation(obj, fn){
     var lat = obj.coordinates[0] * 1;
     var lng = obj.coordinates[1] * 1;

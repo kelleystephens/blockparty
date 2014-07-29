@@ -5,6 +5,8 @@ block content
     h1.meet Meet Your Neighbors!
     if(neighbors)
       .neighbors
+        if(neighbors.length == 1)
+          .none No one in your neighborhood has signed up yet.<br> Spread the word!
         each neighbor in neighbors
           if(neighbor._id.toString() !== user._id.toString())
             .hexagon

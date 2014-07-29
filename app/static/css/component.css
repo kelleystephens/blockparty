@@ -47,7 +47,7 @@
 
 .morph-button-fixed,
 .morph-button-fixed .morph-content {
-	width: 250px;
+	width: 70%;
 	height: 80px;
 }
 
@@ -127,7 +127,7 @@
 }
 
 .morph-button-modal .morph-content {
-	overflow: hidden;
+	overflow: auto;;
 	-webkit-transition: opacity 0.3s 0.5s, width 0.4s 0.1s, height 0.4s 0.1s, top 0.4s 0.1s, left 0.4s 0.1s, margin 0.4s 0.1s;
 	transition: opacity 0.3s 0.5s, width 0.4s 0.1s, height 0.4s 0.1s, top 0.4s 0.1s, left 0.4s 0.1s, margin 0.4s 0.1s;
 }

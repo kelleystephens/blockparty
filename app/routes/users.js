@@ -65,6 +65,8 @@ exports.dashboard = (req, res)=>{
 exports.neighbors = (req, res)=>{
   var user = req.user;
   User.findByLocation(user, neighbors=>{
+    console.log('**************');
+    console.log(neighbors);
     res.render('users/neighbors', {user:user, neighbors:neighbors, title: 'Neighbors'});
   });
 };
