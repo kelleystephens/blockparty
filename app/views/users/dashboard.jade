@@ -71,7 +71,7 @@ block content
                                   p #{reply.name}
                             if(post.rsvp.length)
                               //- each reply in post.rsvp
-                                if(each reply.id.toString() in post.rsvp !== user._id.toString())
+                                if(reply.id.toString() in post.rsvp !== user._id.toString())
                                   h5 RSVP:
                                   form(action='/rsvp/#{post._id}', method='post')
                                     button(name='attend', value='yes') Attending

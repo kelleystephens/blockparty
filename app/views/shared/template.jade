@@ -37,18 +37,19 @@ html
             ul.nav.navbar-nav.navbar-left
               li.li: a.navbar-brand(href='/') BlockParty
             ul.nav.navbar-nav.navbar-right
-              li.dropdown: a.dropdown-toggle(href='#', data-toggle='dropdown') Login
+              li.dropdown: a.dropdown-toggle(href='#', data-toggle='dropdown') Login/Signup
                 b.caret
                 ul.dropdown-menu
-                  li.li.dropdown-header(role='presentation') Login
-                  li.li: a.navbar-text(href='/auth/facebook') Facebook
-                  li.li: a.navbar-text(href='/login') Email
-              li.dropdown: a.dropdown-toggle(href='#', data-toggle='dropdown') Signup
-                b.caret
-                ul.dropdown-menu
-                  li.li.dropdown-header(role='presentation') Signup
-                  li.li: a.navbar-text(href='/auth/facebook') Facebook
-                  li.li: a.navbar-text(href='/signup') Email
+                  //- li.li.dropdown-header(role='presentation') Login
+                  //- li.li: a.navbar-text(href='/auth/facebook') Facebook
+                  li.li: a.navbar-text(href='/login') Login
+                  li.li: a.navbar-text(href='/signup') Signup
+              //- li.dropdown: a.dropdown-toggle(href='#', data-toggle='dropdown') Signup
+              //-   b.caret
+              //-   ul.dropdown-menu
+              //-     li.li.dropdown-header(role='presentation') Signup
+              //-     li.li: a.navbar-text(href='/auth/facebook') Facebook
+              //-     li.li: a.navbar-text(href='/signup') Email
 
     block content
 
